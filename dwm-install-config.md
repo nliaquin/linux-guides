@@ -14,4 +14,4 @@ I made this as my first guide on here and removed my dwm.sh script in my apt-scr
 
 ### Installing Suckless dwm
 
-#Guide in progress
+# Guide in progress
