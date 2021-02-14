@@ -1,28 +1,26 @@
-# Suckless dwm & dwm blocks on Debian-based distros
-*Propritaries:* Debian-Based Distros
-*Dependencies:* Git, Xorg, and several devtools that will be listed below
-*Difficulty:* Moderately Difficult
+# Suckless dwm Installation
+This will be a guide for Debian-based distros, but the steps are nearly all the same.
 
-## Installing Suckless dwm
-### Step 1 | Dependencies
-First you'll need some dependencies. I advise you to look up these packages and at least understand what they are in general. Use this command in the terminal:
+## Step 1 | Dependencies
+For distros with aptitude package manager, you're going to want to run the following in a temrinal:
 
-> sudo apt install git xorg build-essential libx11-dev libxinerama-dev libxft-dev libwebkit2gtk-4.0-dev suckless-tools stterm
+> apt install git xorg build-essential libx11-dev libxinerama-dev libxft-dev libwebkit2gtk-4.0-dev suckless-tools stterm
 
-Now just reboot and continue to step two. If you're newer to Linux, the best commands to reboot are either one of the following:
-> sudo reboot
+Alternatively, if pacman is your standard package manager, run this instead:
 
-### Step 2 | Uninstall gdm3/lightdm
-Now you need to uninstall whichever display manager you have, and typically you'll have gdm3 if you have Ubuntu or Pop OS, but if you have a distro like Mint or Kali, you'll likely have lightdm. Either way, you can try both of these commands in the terminal, as they won't do any harm.
+> pacman -Sy git xorg base-devel suckless-tools stterm
 
-> sudo apt remove gdm3
-> sudo apt remove lightdm
+### Step 2 | Cloning dwm from Suckless.org
+Before we continue, make sure you are either in your home directory or in a directory whose parent is your home directory. I personally prefer to make a directory in my home called .dwm and cd into it before cloning.
 
-Now reboot once more.
+> mkdir .dwm && cd .dwm
 
-### Step 3 | Cloning dwm from Suckless.org
-There are several ways to get dwm on your system, but my favorite way is to clone it from the master git repo on the Suckless website. If you're new to Linux, we just installed a program called git in step one. To clone dwm from Suckless' git server, enter the following command in the terminal:
+Now we want to use git to clone from the master repo on Suckless' website with the following command:
+
 > git clone https://git.suckless.org/dwm
+
+I prefer their configuration with very minor tweaks. I might make a guide later on how to modify the configuration file, but if you're new to dwm, you're going to want to avoid making changes for now and study the keyboard shortcuts dwm uses by default.
+
 
 ### Step 4 | Configuring .xinitrc and .bash_profile
 While in your home directory, and if you're not, use this command to get there (for the beginners)
