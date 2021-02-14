@@ -44,19 +44,31 @@ If you want to run dwm exclusively with no display manager or alternative deskto
 
 ### Step 4a | Configuring dwm for Xorg
 While in your home directory, and if you're not, use this command to get there (for the beginners)
+
 > cd ~
+
 use a text editor to either edit or create .xinitrc. I prefer vim as my text editor.
+
 > vim .xinitrc
+
 If using vim, press the 'i' key, and type the following:
+
 > exec dwm
+
 Press escape and type the following:
+
 > :wq
+
 The semicolon means you're running a command, the w means write to the file, the q means quit the program.
 
 Now you only need to configure your .bash_profile
+
 > vim .bash_profile
+
 Then type the following:
+
 > startx
+
 Same as before, press escape and type the following to save and quit:
 > :wq
 
