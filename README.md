@@ -1,7 +1,7 @@
 # Linux-Guides
 A set of guides assisting with the installation and configuration of free software meant for Linux. There are guides for particular flavours, distros, and software available, as well as general guides for things that work for most Linux distros.
 
-### The Best Way to Utilize These Guides
+## The Best Way to Utilize These Guides
 My guides are all written in markdown, so grab your prefered markdown reader and follow along. My favorite markdown reader is Retext. You can install Retext on Debian-based distros by typing into a terminal
 
 > sudo apt install retext
@@ -10,22 +10,17 @@ and you can open one of the .md guide files by typing into a terminal
 
 > retext 'file'.md
 
-### Naming Standard
-There is a naming standard to my guides that typically goes as follows:
+## Guide Standards
+Every guide will be named in such a way that it's clear what the subject of the guide is.
+*program name*-*action*
+or
+*program name*-*dependency*-*action*
 
-> 'program'-'distro flavor'-'action'
+### What does this mean?
+*program name* should clearly indicate which Linux program we're going to cover. The optional *dependency* means that we're going to be depending on some other program, or in some cases distro, in this guide. *action* will denote what we're doing with that program. So if I'm making a guide on how to configure dwm for LightDM, the guide would be titled **dwm-lightdm-configuration**. If I'm making a guide on how to install nVidia drivers for a GeForce GTX 960, the guide would be titled **nvidia-340-installation**
 
-Program is whatever the specific linux application it is we're going to be learning about. Distro Flavor is what targeted system this is for. This will often say debian, but that doesn't mean it will only be for Debian. It means that this guide will be for Debian-based distros like Ubuntu or Mint. Action is what I'm trying to cover as far as information goes for that program. This could say 'installation', or 'configuration'.
+### Exceptions
+Sometimes I'll write a guide that just isn't standard like the rest, so if that's the case, it'll just be titled whatever fits its content the best.
 
-So if I decide to make a guide on how to install Wine on Ubuntu, the guide will be titled
-
-> wine-debian-installation
-
-or if I want to show you how to configure Wine on Mint, the guide would be titled
-
-> wine-debian-configuration
-
-This standard exists so that it's easier to parse these guides. If any files don't follow this standard, it's likely because the program in question has no specific ties any flavor of Linux, it's either a Unix program or comes standard with every distro.
-
-### Contact Me
+## Contact Me
 If you have any questions, email me at nickolas@nliaquin.xyz
