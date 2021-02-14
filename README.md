@@ -17,7 +17,7 @@ So if I decide to make a guide on how to install Wine on Ubuntu, the guide will 
 or if I want to show you how to configure Wine on Mint, the guide would be titled
 > wine-debian-configuration
 
-This standard exists so that it's easier to parse these guides.
+This standard exists so that it's easier to parse these guides. If any files don't follow this standard, it's likely because the program in question has no specific ties any flavor of Linux, it's either a Unix program or comes standard with every distro.
 
 ### Contact Me
 If you have any questions, email me at nickolas@nliaquin.xyz
