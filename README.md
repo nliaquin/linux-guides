@@ -12,7 +12,9 @@ and you can open one of the .md guide files by typing into a terminal
 
 ### Naming Standard
 There is a naming standard to my guides that typically goes as follows:
+
 > 'program'-'distro flavor'-'action'
+
 Program is whatever the specific linux application it is we're going to be learning about. Distro Flavor is what targeted system this is for. This will often say debian, but that doesn't mean it will only be for Debian. It means that this guide will be for Debian-based distros like Ubuntu or Mint. Action is what I'm trying to cover as far as information goes for that program. This could say 'installation', or 'configuration'.
 
 So if I decide to make a guide on how to install Wine on Ubuntu, the guide will be titled
