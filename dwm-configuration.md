@@ -14,16 +14,16 @@ For pacman package manager:
 
 In your config.def.h file, you should add this line to the very top, where all namespace imports should go:
 
-> #include <X11/XF86keysym.h>
+`#include <X11/XF86keysym.h>`
 
 Where the other character arrays are declared in the commands section, create the following arrays:
 
-> static const char *volup[] = { "amixer", "set", "Master", "5%+", "unmute", NULL };
-> static const char *voldn[] = { "amixer", "set", "Master", "5%-", "unmute", NULL };
-> static const char *volmt[] = { "amixer", "set", "Master", "toggle", NULL };
+`static const char *volup[] = { "amixer", "set", "Master", "5%+", "unmute", NULL };
+static const char *voldn[] = { "amixer", "set", "Master", "5%-", "unmute", NULL };
+static const char *volmt[] = { "amixer", "set", "Master", "toggle", NULL };`
 
 Finally, you're going to add the following lines in the keys array object:
 
-> { 0, XF86XK_AudioRaiserVolume, spawn, {.v = volup } },
-> { 0, XF86XK_AudioLowerVolume, spawn, {.v = voldn } },
-> { 0, XF86XK_AudioMute, spawn, {.v = volmt } };
+`{ 0, XF86XK_AudioRaiserVolume, spawn, {.v = volup } },
+{ 0, XF86XK_AudioLowerVolume, spawn, {.v = voldn } },
+{ 0, XF86XK_AudioMute, spawn, {.v = volmt } };`
