@@ -24,6 +24,6 @@ static const char *volmt[] = { "amixer", "set", "Master", "toggle", NULL };`
 
 Finally, you're going to add the following lines in the keys array object:
 
-`{ 0, XF86XK_AudioRaiserVolume, spawn, {.v = volup } },
+`{ 0, XF86XK_AudioRaiseVolume, spawn, {.v = volup } },
 { 0, XF86XK_AudioLowerVolume, spawn, {.v = voldn } },
-{ 0, XF86XK_AudioMute, spawn, {.v = volmt } };`
+{ 0, XF86XK_AudioMute, spawn, {.v = volmt } },`
