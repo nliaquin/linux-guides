@@ -206,4 +206,9 @@ Now you may reboot:
 You may be wondering why I say to follow this guide as is, even if you do not have and EFI motherboard. Well, it still just works. I have three devices without EFI, and this is exactly how I installed Arch and Gentoo on them.
 Why does this work? This configuration is functional for all systems, regardless. Boot partitioning is arbitrary on non-efi systems. EFI has a particular setup for booting, which is why you MUST follow this for EFI systems.
 
+One more thing: if you find that wlan0 is unavailable at startup, use the following command after rebooting and logging into root:
+> systemctl enable rfkill-unblock@all
+
+This tells systemd, the init system, to always unblock networking.
+
 If you had any trouble, feel free to contact me via email at nickolas@nliaquin.xyz and feel free to check out my other guides and repos at https://github.com/nliaquin
