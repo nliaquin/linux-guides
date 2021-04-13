@@ -14,11 +14,9 @@ For distros that use the aptitude package manager, the following packages are ne
 * libwebkit2gtk-4.0-dev - helps display web content to xorg
 
 There descriptions are simplifications, but they give you an idea of what we're working with. You can run the following command to install all of the above:
-
 > apt install build-essential xorg libx11-dev libxinerama-dev libxft-dev libwebkit2gtk-4.0-dev
 
 If you're on a system that uses the pacman package manager, you'll just need the following:
-
 > pacman -Sy xorg xorg-xinit base-devel
 
 Just a note, base-devel is just the arch-equivalent to build-essential.
@@ -28,19 +26,15 @@ Just a note, base-devel is just the arch-equivalent to build-essential.
 We can clone into a number of locations, but it's probably best to make a hidden directory in your home folder, like .suckless, and clone everything into there.
 
 First we'll clone the base, which is dwm itself:
-
 > git clone https://git.suckless.org/dwm
 
 Now we'll clone dmenu, which is basically the core of suckless utilities:
-
 > git clone https://git.suckless.org/dmenu
 
 You may want to clone suckless' terminal, stterm (simple terminal), but I typically use my own terminal. Run this for stterm:
-
 > git clone https://git.suckless.org/st
 
 And finally, I prefer dwmblocks for configuring my status bar, so go ahead and run the following for an easy to use, easy to configure status bar:
-
 > git clone https://github.com/torrinfail/dwmblocks
 
 
@@ -50,7 +44,6 @@ This next part is going to be tedious, but since we aren't configuring right now
 The next command is going to use a makefile that is in the current directory. Make files are used to execute a set of protocols and commands that a developer sets for their c-type programs in order for the program to work as intended. You can learn more here: https://opensource.com/article/18/8/what-how-makefile
 
 Understand that in the case of these programs that were designed for dwm, as well as dwm itself, the file being compiled if the config.def.h file. A lot of people have misconception that they should modify config.h, but when making changes to dwm, the best practice is to remove config.h, and modify config.def.h, and *then* compile. To compile dwm and its patches, run the following:
-
 > sudo make clean install
 
 What you've just done is compile a config.h file and extracted the executables into their respective /usr/ directories in order for dwm to work like any other Linux c program. So, just one last heads up, when you read my guide on configuring dwm and its patches, make sure to follow the directions and delete the config.h file before recompiling config.def.h for safety. We want to make sure your changes work, and this is the only way to do so.
@@ -68,11 +61,9 @@ If you want to run dwm exclusively with no display manager or alternative deskto
 
 ### Step 4a | Configuring dwm for Xorg
 While in your home directory, and if you're not, use this command to get there (for the beginners)
-
 > cd ~
 
 use a text editor to either edit or create .xinitrc. I prefer vim as my text editor.
-
 > vim .xinitrc
 
 If using vim, press the 'i' key, and type the following:
@@ -80,7 +71,6 @@ If using vim, press the 'i' key, and type the following:
 > exec dwm
 
 Press escape and type the following:
-
 > :wq
 
 The semicolon means you're running a command, the w means write to the file, the q means quit the program.
@@ -98,11 +88,12 @@ Same as before, press escape and type the following to save and quit:
 
 ### Step 4b | Configuring dwm for lightdm
 Run the following command to install lightdm:
-
 > sudo apt install lightdm
 
-We don't really have to navigate anywhere to do this next part, you can simply run the following command:
+On Arch distros, you'll want
+> sudo pacman -S xorg xorg-xinit lightdm lightdm-gtk-greeter
 
+We don't really have to navigate anywhere to do this next part, you can simply run the following command:
 > sudo vim /usr/share/xsessions/dwm.desktop
 
 What we're doing is creating a file recognized by lightdm as a *desktop entry* for dwm. Installing Xfce4 or Gnome will always create desktop entries for you, but dwm requires us to set it up ourselves. Press *i* or the *insert* key to enter write mode in this file, then enter the following information:
@@ -124,11 +115,15 @@ What we're doing is creating a file recognized by lightdm as a *desktop entry* f
 
 
 Press the escape key and type in the following to save and quit:
-
 > :wq!
 
-Now all that's left is to reboot, which is best done by entering 
+One thing you're going to want to do is put all of your startup scripts of your choosing in a file like .startup.sh which will be called by a file you create named .xsession, all of which go in your home directory. For instance, if you want dwmblocks by torrinfail to run on startup, put the following in .startup.sh
+> dwmblocks &
 
+Then in .xsession, write:
+> sh .startup.sh
+
+Now all that's left is to reboot, which is best done by entering 
 > sudo reboot
 
 ### Step 5 | Aftermath
