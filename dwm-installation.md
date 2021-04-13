@@ -107,13 +107,21 @@ We don't really have to navigate anywhere to do this next part, you can simply r
 
 What we're doing is creating a file recognized by lightdm as a *desktop entry* for dwm. Installing Xfce4 or Gnome will always create desktop entries for you, but dwm requires us to set it up ourselves. Press *i* or the *insert* key to enter write mode in this file, then enter the following information:
 
-[Desktop Entry]
-Encoding=UTF-8
-Name=dwm
-Comment=Suckless dynamic window manager
-Exec=dwm
-Icon=dwm
-Type=XSession
+
+`[Desktop Entry]`
+
+`Encoding=UTF-8`
+
+`Name=dwm`
+
+`Comment=Suckless dynamic window manager`
+
+`Exec=dwm`
+
+`Icon=dwm`
+
+`Type=XSession`
+
 
 Press the escape key and type in the following to save and quit:
 
