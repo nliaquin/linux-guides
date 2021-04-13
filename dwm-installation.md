@@ -128,4 +128,9 @@ After rebooting, you may notice your monitors are not ordered correctly, given y
 
 If you notice only a black screen when rebooting, this is likely because you already had proprietary drivers or nvidia drivers installed to manage your display. This guide supports xorg and xsessions, but I unfortunately do not have any advice for nvidia gpu owners at this time. I am also having issues with nvidia on Debian-based distros while running dwm, and quite frankly, you're better off using PopOS or Manjaro for that sort of thing.
 
+One more thing: if you find that wlan0 is unavailable at startup, use the following command after rebooting and logging into root:
+> systemctl enable rfkill-unblock@all
+
+This tells systemd, the init system, to always unblock networking.
+
 If you have any questions or would like some help, email me at nickolas@nliaquin.xyz
