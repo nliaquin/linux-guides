@@ -81,19 +81,19 @@ Next, lets format by doing executing the following commands:
 
 
 ### Mounting the partitions
-First we'll activate the swap partition in one line:
+An important thing to remember is that you want to mount your root partition first:
+> mount /dev/sda3 /mnt
+
+Then we'll activate the swap partition in one line:
 > mkswap /dev/sda2 && swapon /dev/sda2
 
-Then let's make a couple of needed directories real quick:
+Let's make a couple of needed directories real quick:
 > mkdir /mnt/boot && mkdir /mnt/boot/efi && mkdir /mnt/home
 
 Now we'll mount boot:
 > mount /dev/sda1 /mnt/boot/efi
 
-Let's mount root:
-> mount /dev/sda3 /mnt
-
-We'll mount home:
+Lastly, we mount home:
 > mount /dev/sda4 /mnt/home
 
 We're done mounting.
@@ -117,7 +117,9 @@ One problem a lot of people have is a message stating *GLIBC_2.33 not found (req
 That resolves that issue, now rerun my git clone command and it will work.
 
 Now all you have to do is concatenate my list to the pacman mirrorlist file:
-> cat arch-mirrors/https >> /etc/pacman.d/mirrorlist
+> cat arch-mirrors/mirrorlist > /etc/pacman.d/mirrorlist
+
+I keep this list updated once a month as a convenience. Feel free to use it yourself from now on when it's time to update the mirrors.
 
 
 ### Pacstrapping root
