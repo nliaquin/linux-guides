@@ -73,7 +73,7 @@ Provided you've written to a hard drive with nothing on it, or you deleted prior
 Next, lets format by doing executing the following commands:
 > mkfs.fat -F32 /dev/sda1
 
-> mkfs.swap /dev/sda2
+> mkswap /dev/sda2
 
 > mkfs.ext4 /dev/sda3
 
@@ -84,8 +84,8 @@ Next, lets format by doing executing the following commands:
 An important thing to remember is that you want to mount your root partition first:
 > mount /dev/sda3 /mnt
 
-Then we'll activate the swap partition in one line:
-> mkswap /dev/sda2 && swapon /dev/sda2
+Then we'll activate the swap partition:
+> swapon /dev/sda2
 
 Let's make a couple of needed directories real quick:
 > mkdir /mnt/boot && mkdir /mnt/boot/efi && mkdir /mnt/home
