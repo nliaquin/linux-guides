@@ -125,7 +125,7 @@ I keep this list updated once a month as a convenience. Feel free to use it your
 ### Pacstrapping root
 Usually during this step, people just install the standard packages, but I think this is actually a good time to install some other essentials like iwd, which does not come with arch post-installation, and dhcpcd, which will help with resolving hosts when you boot in post-installation:
 
-> pacstrap /mnt base base-devel linux linux-firmware iwd efibootmgr vim git dhcpcd dhclient bash man-dp man-pages texinfo openssh wget curl sudo
+> pacstrap /mnt base base-devel linux linux-firmware iwd efibootmgr vim git dhcpcd dhclient bash man-db man-pages texinfo openssh wget curl sudo
 
 This is a ton of stuff to help you get going, but it's not everything. This does not cover graphical environments, video, audio, etc. I have more guides on that at https://github.com/nliaquin/linux-guides
 
