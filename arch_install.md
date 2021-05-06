@@ -166,7 +166,9 @@ The next step defines your host's identity to your PC's local network configurat
 Once in editing mode, write out the following, given you went with arch-laptop as your host name:
 
 `127.0.0.1   localhost`
+
 `::1         localhost`
+
 `127.0.1.1   arch-laptop.localdomain arch-laptop`
 
 If you don't do this, the networking on your instance of arch doesn't work properly.
