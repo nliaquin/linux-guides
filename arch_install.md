@@ -73,7 +73,7 @@ Provided you've written to a hard drive with nothing on it, or you deleted prior
 Next, lets format by doing executing the following commands:
 > mkfs.fat -F32 /dev/sda1
 
-> mkfs.swap /dev/sda2
+> mkswap /dev/sda2
 
 > mkfs.ext4 /dev/sda3
 
@@ -84,8 +84,8 @@ Next, lets format by doing executing the following commands:
 An important thing to remember is that you want to mount your root partition first:
 > mount /dev/sda3 /mnt
 
-Then we'll activate the swap partition in one line:
-> mkswap /dev/sda2 && swapon /dev/sda2
+Then we'll activate the swap partition:
+> swapon /dev/sda2
 
 Let's make a couple of needed directories real quick:
 > mkdir /mnt/boot && mkdir /mnt/boot/efi && mkdir /mnt/home
@@ -125,7 +125,7 @@ I keep this list updated once a month as a convenience. Feel free to use it your
 ### Pacstrapping root
 Usually during this step, people just install the standard packages, but I think this is actually a good time to install some other essentials like iwd, which does not come with arch post-installation, and dhcpcd, which will help with resolving hosts when you boot in post-installation:
 
-> pacstrap /mnt base base-devel linux linux-firmware iwd efibootmgr vim git dhcpcd dhclient bash man-dp man-pages texinfo openssh wget curl sudo
+> pacstrap /mnt base base-devel linux linux-firmware iwd efibootmgr vim git dhcpcd dhclient bash man-db man-pages texinfo openssh wget curl sudo
 
 This is a ton of stuff to help you get going, but it's not everything. This does not cover graphical environments, video, audio, etc. I have more guides on that at https://github.com/nliaquin/linux-guides
 
@@ -165,9 +165,11 @@ The next step defines your host's identity to your PC's local network configurat
 
 Once in editing mode, write out the following, given you went with arch-laptop as your host name:
 
-127.0.0.1   localhost
-::1         localhost
-127.0.1.1   arch-laptop.localdomain arch-laptop
+`127.0.0.1   localhost`
+
+`::1         localhost`
+
+`127.0.1.1   arch-laptop.localdomain arch-laptop`
 
 If you don't do this, the networking on your instance of arch doesn't work properly.
 
@@ -204,13 +206,21 @@ Now you may reboot:
 > reboot
 
 
+### Post-Installation
+A problem you might run into is with internet after finishing the installation.
+
+What to do if iwd doesn't pick up eth0 or wlan0:
+> systemctl enable rfkill-unblock@all
+
+What to do if dhcp doesn't work on startup:
+> ip link set wlan0 up
+
+> dhclient wlan0
+
+If you're using ethernet, replace wlan0 with eth0.
+
 ### A note on EFI
 You may be wondering why I say to follow this guide as is, even if you do not have and EFI motherboard. Well, it still just works. I have three devices without EFI, and this is exactly how I installed Arch and Gentoo on them.
 Why does this work? This configuration is functional for all systems, regardless. Boot partitioning is arbitrary on non-efi systems. EFI has a particular setup for booting, which is why you MUST follow this for EFI systems.
-
-One more thing: if you find that wlan0 is unavailable at startup, use the following command after rebooting and logging into root:
-> systemctl enable rfkill-unblock@all
-
-This tells systemd, the init system, to always unblock networking.
 
 If you had any trouble, feel free to contact me via email at nickolas@nliaquin.xyz and feel free to check out my other guides and repos at https://github.com/nliaquin
