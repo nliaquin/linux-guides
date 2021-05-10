@@ -178,6 +178,11 @@ Now you'll want to enable iwd and dhcpcd so that networking just works on next b
 
 > systemctl enable dhcpcd
 
+Lastly, go ahead and use nano or vim to modify /etc/locale.gen and uncomment out the line down below where it just says the following:
+> #en_US.UTF-8 UTF-8
+
+This just ensures that when programs look for your locale, they can default to it instead of C. Most programs will default to C if this isn't done, which is fine, but you'll just keep getting errors every time you run programs looking for the locale.gen value while still doing what you've asked.
+
 
 ### Set the root password
 Because we need to log into Arch as root post-installation on the first go, you need to set a root password before you forget like so:
