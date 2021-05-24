@@ -1,11 +1,12 @@
-# Networking from Scratch
-### or, how to control your networking card from the commandline
-
-This'll be a quick one for now, maybe I'll come back later and add more information.
-
+# Using Wifi from the Commandline
 There are 2 major components to connecting to the internet via the commandline; a dhcp client and a network manager. Today I'm going to push iwd, which is a network manager available to all distros via the mainstream package managers and the latest up and coming networking software that is replacing NetworkManager. On top of that, I'll be recommending dhcpcd and dhclient as the classing dhcp software used on all distros.
 
-### Installing these packages
+### Table of Contents
+- [Required Packaged](#required-packages)
+- [Confirguring iwd](#configuring-iwd)
+- [Configuring dhcp](#configuring-dhcp)
+
+### Required Packages
 I shouldn't have to tell you, but this requires some thinking ahead. If you're installing Gentoo or Arch, you need to install and enable both packages during the chroot environment stage of installing the distros. Once chrooted or arch-chrooted in, you need to install iwd and dhcpcd like so (on Arch):
 > pacman -Sy dhcpcd dhclient iwd
 
@@ -30,34 +31,30 @@ Then list your network devices:
 If this comes up with nothing, exit iwd and enter the following commands:
 > systemctl enable rfkill-unblock@all
 
-If you're planning on using wifi:
 > rfkill unblock wlan0
-
-If you're planning on using ehternet:
-> rfkill unblock eth0
 
 Now go back into iwd:
 > iwctl
 
+List all network interfaces with the following command:
 > station list
 
-You will see whichever interfaces are on your machine and unblocked now. From here, I'll refer to whatever your device is as **netdev** so I don't repeat myself. If you're using ethernet, **netdev** means eth0. If you're on wifi, it means wlan0.
+Scan for wifi networks:
+> station wlan0 scan
 
-> station **netdev** scan
+List wifi networks:
+> station wlan0 get-networks
 
-> station **netdev** get-networks
+Connect to a wifi network:
+> station wlan0 connect **network name**
 
-You should see all networks available to you now.
-
-> station **netdev** connect **network name**
-
-If there is a password, it'll ask for it.
+If there is a password, it'll ask for it. Type it and hit enter. No confirmation will be given upon successful connection, but failed connection will give a warning.
 
 ### Configuring dhcp
 All you really need to do is this:
-> ip link set **netdev** up
+> ip link set wlan0 up
 
-> dhclient **netdev**
+> dhclient wlan0
 
 That's it. Now just ping a website a couple times:
 > ping -c2 google.com
