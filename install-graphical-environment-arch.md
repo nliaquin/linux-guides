@@ -2,6 +2,11 @@
 
 If you read my last guide on how to install Arch Linux, you may have noticed I didn't cover what to do post-installation. There are various steps to take now, but I'm going to focus on getting the graphical environment configured and running first. Before we begin, quickly check out my networking-from-scratch.md guide, because chances are you don't have internet after booting into your new Arch installation and you need to set up dhcp.
 
+### Table of Contents
+- [Xorg](#xorg)
+- [Display Manager](#display-manager)
+- [Desktop Environment](#desktop-environment)
+
 ### Xorg
 You need xorg for starters, and you optionally need to figure out which component you are going to render from on your device. By default, the component that takes on the work of rendering is going to be the CPU, but if you have a graphics card, you'll need to specifiy which package you want to install alongside xorg.
 
@@ -47,7 +52,6 @@ For Nvidia (Proprietary, Specific):
 Just a heads up for that last one, you can specify which Nvidia driver you need from the last generation by replacing the **xx** with the version number. You may have to do this for 700-900 series GTX cards, like I have.
 
 I'll make a guide later on further elaboratin Nvidia drivers, but for now, all I will say is that Nvidia can be a pain. I'm speaking from experience...
-
 
 Now that you figured out which drivers you need, you're mostly good to move on, but you might need to enable xorg-xinit:
 > systemctl enable xorg-xinit
