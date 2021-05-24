@@ -1,108 +1,132 @@
-# Installing Arch Linux (Quickly)
-This isn't so much an in-depth guide on installing Arch, that you can get on the Arch Wiki. No, this is the quick and most efficient way to manually install Arch.
-I've added some steps the official guide does not include, but is vital to ensuring the best outcomes post-installation. I still advise everyone to check out the official guide some time.
+# Installing Arch Linux (Manually)
+As of May 2021, Arch Linux officially comes with a guided installer. However, it's not what everyone expected... While some will be resorting to automatically installing Arch Linux from now on, many users will still install Arch manually from the ground up. Installing Arch the traditional way, much like installing older Linux distros before guided installations became the norm, is a matter of practice and having the right guide. The Arch wiki has a page dedicated to the manual install process, but many details are not fleshed out and require users to go down rabbit holes of wiki-page after wiki-page to get a full picture. In this guide, I'm not only going to show you how to install Arch, I'm going to instruct you on how to best optimize your installation, as well as how to install the boot loader and a few extra important details the Arch wiki does not cover.
 
-If you feel any of the commands are too long, you can always clone this guide using git and use vim to copy and paste commands directly from here.
+### Table of Contents
+- [Checking the EFI Status](#checking-the-efi-status)
+- [Connecting to the internet](#connecting-to-the-internet)
+- [Updating the System Clock](#updating-the-system-clock)
+- [Partitioning Your Hard Drive](#partitioning-your-hard-drive)
+- [Mounting the Partitions](#mounting-the-partitions)
+- [Setting Pacman Mirrors](#setting-pacman-mirrors)
+- [Pacstrapping root](#pacstrapping-root)
+- [Generating fstab](#generating-fstab)
+- [Chrooting In](#chrooting-in)
+- [Setting the Timezone](#setting-the-timezone)
+- [Configuring Localization](#configuring-localization)
+- [Configuring Networking](#configuring-networking)
+- [Setting Root Password](#setting-root-password)
+- [Installing and Configuring GRUB](#installing-and-configuring-grub)
+- [Post-Installation](#post-installation)
 
-### Check EFI Status
-Whether or not your motherboard uses EFI, you're going to want to check with the following command:
+### Checking the EFI Status
+All modern computers are EFI-boot, but you might be working with an older motherboard, so you'll want to make sure you know whether or not your computer is using EFI.
+
+To check, enter:
 > ls /sys/firmware/efi/efivars
 
-If this comes up with nothing, you're on an older system. Honestly, the installtion is the same regardless. I've always installed Arch the same way on all of my devices, EFI or not.
-If a bunch of results pop up, you are in an EFI environment, which means you'll have the ability to put your system into hibernation provided you make a swap partition. We're gonna do that.
-
+One of two outcomes occur. Either you'll see a whole bunch of output, an error, or nothing at all. If you see a whole bunch of output on the screen, that means you have efi vars, and thus, efi. Had there been an error, or nothing at all, this means you have BIOS-boot. This only affects one factor of the installation, the boot loader. Don't worry about this for now and continue.
 
 ### Connecting to the internet
-It doesn't matter whether your network card is blocked or not, it's easier just to run the following command than to try connecting to the internet and failing:
-> rfkill unblock wifi
+The Arch installation medium unfortunately will take you very far without an internet connection. This is because Arch is a minimalast distro which only contains a small numbe rof pre-installed utilities, such as standard GNU and Linux programs, shells, etc. You'll have to learn how to connect to wifi via the commandline if you don't have ethernet, but don't fret! A newer utility called iwd comes standard with the Arch installation medium. This program is far easier to use compared to NetworkManager, which is soon to be deprecated, or at least will be phased out once a number of desktop environments no longer depend on it.
 
-What we've just done is enabled wifi if it was blocked on startup.
-
-Next we need to use a program called iwd in order to connect to wifi from the commandline:
+For reference, iwd is spawned via the commandline as follows:
 > iwctl
 
-You should be in a CLI environment now where your $ will be **[iwd]#** . Next type this:
-> station list devices
+You'll be put into a commandline interface, and you'll now want to list your network devices:
+> station list
 
-What we're doing is looking at your available networking devices. You should see *wlan0* at this time. Next type:
+At this point, one of two things will occur. Either you'll see a device named something like wlan0, you'll see nothing, or you'll see other devices such as enp2s0. The fact is, we need a wlan device for wifi, and if you don't see wlan0, or something that starts with wlan, you need to exit iwd by either typing exit, or pressing ctrl+c.
+
+If you have a wifi adapter on your device, regardless if it's PCI or USB, you have a wlan device, but it's currently being blocked. To unblock it, type the following:
+> rfkill unblock wifi
+
+This was a temporary unblocking of your wlan device. We'll whitelist it permanently later in the guide. For now, type in iwctl again, and then use **station list** once more to see your network interface. If wlan0 shows up, you'll want to scan for networks like so:
 > station wlan0 scan
 
-Nothing will happen... yet. Type in:
+After scanning, you can list your networks using:
 > station wlan0 get-networks
 
-All this does is shows the nearby wifi networks. Once you've identified your network, let's say it's **HomeNetwork**, type in the following:
-> station wlan0 connect HomeNetwork
+If you see your wifi network, or if you already knew your network name, all you have to do is:
+> station wlan0 connect **Network Name**
 
-It'll ask you for the network password. After typing it in, nothing will indicate you successfully got on the network. This is okay, just type exit or hold **ctrl + c**
+Auto-completion is built into iwd. Typing the first couple of letters/numbers of your wifi network and pressing tab will autofill your networks ssid. You will be prompted to enter the network passphrase, and once you successfully connect to the wifi, you'll get no confirmation. Just exit the program and move forward. You will get a warning if you entered the wrong passphrase.
 
-Ping google or a website of your choice real quick and verify you have a network connection:
+After exiting iwd, enter the following to test your connection:
 > ping -c3 google.com
 
 This just pings 3 times so you don't have to cancel or exit the ping program.
 
-
-### Updating the system clock
-Just type in:
+### Updating the System Clock
+If the system clock is innacurate, there will be complications regarding the package manager. Enter the following to ensure that your system clock will be accurate during installation:
 > timedatectl set-ntp true
 
-That's it for now. More on the clock and timezone later...
+### Partitioning Your Hard Drive
+There are a number of ways to partition your hard drive for any Linux distro, but I prefer to use **cfdisk** to partition my disks. I also prefer a boot partition, a root partition, a swap partition, and a home partition, all in that order. Boot, Root, Swap, Home. Remember that for all future Linux Distro installations, as this applies to all distros.
 
+ - boot partition       512M             fat32
+ - root partition       25G to 50G       ext4
+ - swap partition       4G to 8G
+ - home partition       remainder        ext4
 
-### Partition the disk
-I prefer to use **cfdisk** to partition my disk. I also prefer a boot partition, a swap partition, a root partition, and a home partition.
+If you have an alternative partitioning schema, go ahead and feel free to use whatever you want. However, I will continue this section as though you chose mine:
+> cfdisk
 
- - boot partition       512M        fat32
- - swap partition       8G          doesn't matter
- - root partition       25G         ext4
- - home partition       remainder of the disk, also ext4
+In cfdisk, you'll see a list of partitions, some options below such as [Bootable], [Delete], [Quit], [Write], etc. If this is not a new hard drive, go ahead and delete every partition listed form the top. If you have no partitions already, proceed to choose [New] and set the partition to be 512M. Hit the down arrow to move to the next empty space on the hard drive, then hit [New] again and type 25G or more, it really just depends on the size of your drive. Then hit [New] again and enter 4G or more, again, depending on the size of the drive. Lastly, hit [New] one more time and leave it at whatever the remaining space is. This will be the home partition, and you want to use the remaining disk space for your users, their personal files and programs, etc. Finally, choose the [Write] option, type out yes when asked to confirm changes, then press [Exit].
 
-Don't get hung up on my particular schema, just know that if you plan on using Linux for the usual home desktop environment; gaming, work, production, etc; this schematic above works just fine.
-
-I'm not going to show you how to partition drives here, but I will show you how to format them and mount them. Partitioning is a guide on its own that I'll write when I have time later.
-
-After writing your partitions to the disk and quitting cfdisk, run the following to check your partitions on the installation disk are properly written:
+Confirm you did all that correctly by typing:
 > lsblk
 
-Provided you've written to a hard drive with nothing on it, or you deleted prior partitions, you should see something like:
- sda
-  sda1     512M
-  sda2     8G
-  sda3     25G
-  sda4     whatever you had left after the first 3 partitions
+If everything was done correctly, you should see something like this:
+
+`sda`
+
+`|-sda1     512M`
+
+`|-sda2     25G`
+
+`|-sda3     4G`
+
+`'sda4      whatever you had left after the first 3 partitions`
 
 Next, lets format by doing executing the following commands:
 > mkfs.fat -F32 /dev/sda1
 
-> mkswap /dev/sda2
+> mkfs.ext4 /dev/sda2
 
-> mkfs.ext4 /dev/sda3
+> mkswap /dev/sda3
 
 > mkfs.ext4 /dev/sda4
 
+### Mounting the Partitions
+Now that we've created the partitions, we have to mount them into the right places. On Arch, /mnt is the location where you'll be setting up Arch for use.
 
-### Mounting the partitions
 An important thing to remember is that you want to mount your root partition first:
-> mount /dev/sda3 /mnt
+> mount /dev/sda2 /mnt
 
-Then we'll activate the swap partition:
-> swapon /dev/sda2
+Before continuing, remember whether *ls /sys/firmware/efi/efivars* produced output. If yes, do the following:
+> mkdir /mnt/boot && mkdir /mnt/boot/efi
 
-Let's make a couple of needed directories real quick:
-> mkdir /mnt/boot && mkdir /mnt/boot/efi && mkdir /mnt/home
-
-Now we'll mount boot:
 > mount /dev/sda1 /mnt/boot/efi
 
+If no, do this instead:
+> mkdir /mnt/boot
+
+> mount /dev/sda1 /mnt/boot
+
+More on this later...
+
+Then we'll activate the swap partition:
+> swapon /dev/sda3
+
 Lastly, we mount home:
+> mkdir /mnt/home
+
 > mount /dev/sda4 /mnt/home
 
-We're done mounting.
+### Setting Pacman Mirrors
+This is an optional step that can be beneficial in two ways: the first being faster download speeds when installing or updating packages. The second being that if you're on campus wifi, work wifi, or any network that is not your own, meaning you did not configure it, mirrorlists are a potential step to getting around blacklisted sites on the network. If you find yourself unable to download any packages while on a given connection, and you're not using a mirrorlist, I heavily encourage doing this.
 
-
-### Add mirrors to /etc/pacman.d/mirrorlist
-This is an optional step that can speed up your connection to the Arch repositories give you live in the United States.
-
-Sychronize pacman database
+First, synchronize the pacman databases:
 > pacman -Syy
 
 Once this is done, install git:
@@ -116,33 +140,29 @@ One problem a lot of people have is a message stating *GLIBC_2.33 not found (req
 
 That resolves that issue, now rerun my git clone command and it will work.
 
-Now all you have to do is concatenate my list to the pacman mirrorlist file:
-> cat arch-mirrors/mirrorlist > /etc/pacman.d/mirrorlist
+A quick side-note: If you can't use pacman because you do not have a mirrorlist set up beforehand, you can easily download my mirrorlist from any other computer, put it on a flash drive, and mount that flash drive while installing Arch. Then proceed to do the following.
 
-I keep this list updated once a month as a convenience. Feel free to use it yourself from now on when it's time to update the mirrors.
+Simply move the mirrorlist to the following destination:
+> mv arch-mirrors/mirrorlist > /etc/pacman.d/
 
+I keep this list updated once a month as a convenience. Feel free to use it yourself from now on when it's time to update your mirrors.
 
 ### Pacstrapping root
-Usually during this step, people just install the standard packages, but I think this is actually a good time to install some other essentials like iwd, which does not come with arch post-installation, and dhcpcd, which will help with resolving hosts when you boot in post-installation:
+Usually during this step, people just install the standard packages, but I think this is actually a good time to install some other essentials like iwd, which does not come with Arch post-installation, dhcpcd, which will help with resolving hosts when you boot in post-installation, and other great utilities:
 
-> pacstrap /mnt base base-devel linux linux-firmware iwd efibootmgr vim git dhcpcd dhclient bash man-db man-pages texinfo openssh wget curl sudo
+> pacstrap /mnt base base-devel linux linux-firmware iwd efibootmgr vim git dhcpcd dhclient bash man-db man-pages texinfo openssh sudo
 
 This is a ton of stuff to help you get going, but it's not everything. This does not cover graphical environments, video, audio, etc. I have more guides on that at https://github.com/nliaquin/linux-guides
 
-
 ### Generating fstab
-In order to boot properly into the system each time we start up, you need to create a table with all of the partition mounting information in /etc/fstab:
+In order to boot properly into the system each time we start up, you need to create a table with all of the partition mapping information in /etc/fstab:
 > genfstab -U /mnt >> /mnt/etc/fstab
 
-
-### Chrooting in
-We will now chroot into the Arch instance we've been building on /mnt and performing some required network changes:
+### Chrooting In
+This next step will allow you to modify your base Arch system before you even finish installing it. Basically, you're about to start modifying your distro as if it's already installed before you even run it. Chrooting into Linux has a number of different use-cases, such as system recovery. From this point forward, everything we do directly affects Arch post-installation:
 > arch-chroot /mnt
 
-We're in.
-
-
-### Set the time-zone, clock, localization, and so on
+### Setting the Timezone
 Let's say you live in New York, you would run the following:
 > ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
@@ -151,16 +171,23 @@ If you lived in Detroit, you would have written America/Detroit instead.
 Adjust the time to fit that region change:
 > hwclock --systohc
 
-Set the encoding, for instance, UTF-8 for American computers:
-> echo "LANG=en_US.UTF-8" > /etc/locale.conf
+### Configuring Localization
+Use nano or vim to modify /etc/locale.gen and uncomment out the line down below where it just says the following:
+> #en_US.UTF-8 UTF-8
 
-Generate locale file:
+Now initialize the locale file:
 > locale-gen
 
-Giving your machine a host identity is crucial, because it's how your PC identifies your localhosts' name. Let's say we're naming our machine arch-laptop:
+Set the encoding language to, for instance, UTF-8 for US computers:
+> echo "LANG=en_US.UTF-8" > /etc/locale.conf
+
+This just ensures that when programs look for your locale, they can default to it instead of C. Most programs will default to C if this isn't done, which is fine, but you'll just keep getting errors every time you run programs looking for the locale.gen value while still doing what you've asked.
+
+### Configuring Networking
+Giving your machine a host identity is crucial, as Linux requires a hostname in order for certain networking functions to work properly. Let's say we're naming our machine arch-laptop:
 > echo arch-laptop > /etc/hostname
 
-The next step defines your host's identity to your PC's local network configuration. You're going to use a text editor such as vi, vim, or nano like so:
+Next, use vim or nano to modify your system's hosts file:
 > vim /etc/hosts
 
 Once in editing mode, write out the following, given you went with arch-laptop as your host name:
@@ -171,34 +198,31 @@ Once in editing mode, write out the following, given you went with arch-laptop a
 
 `127.0.1.1   arch-laptop.localdomain arch-laptop`
 
-If you don't do this, the networking on your instance of arch doesn't work properly.
-
-Now you'll want to enable iwd and dhcpcd so that networking just works on next boot:
+Now you'll want to enable iwd and dhcpcd at startup so that networking just works on boot:
 > systemctl enable iwd
 
 > systemctl enable dhcpcd
 
-Lastly, go ahead and use nano or vim to modify /etc/locale.gen and uncomment out the line down below where it just says the following:
-> #en_US.UTF-8 UTF-8
+Lastly, if you had to use rfkill in order to unblock wlan0, run the following command:
+> systemctl enable rfkill-unblock@all
 
-This just ensures that when programs look for your locale, they can default to it instead of C. Most programs will default to C if this isn't done, which is fine, but you'll just keep getting errors every time you run programs looking for the locale.gen value while still doing what you've asked.
-
-
-### Set the root password
+### Setting Root Password
 Because we need to log into Arch as root post-installation on the first go, you need to set a root password before you forget like so:
 > passwd
 
 You'll get a message asking you to set the password. Set it to something good, but don't plan on using root as your main user. Many programs will not allow this in the Linux community.
 
-
 ### Installing and Configuring GRUB
 Grub is the bootloader that gives you the ability to actually start Linux after booting. You'll need to first download grub like so:
 > pacman -S grub
 
-Once it finished downloading, install grub as follows:
+From here, we can do this two different ways: if *ls /sys/firmware/efi/efivards* produced results, do the following:
 > grub-install --target=x86_64-efi --efi-directory=/boot/efi
 
-Now configure grub:
+If not, do this instead:
+> grub-install --target=i386-pc
+
+Lastly, export your grub configuration:
 > grub-mkconfig -o /boot/grub/grub.cfg
 
 Once that's all finished, exit chroot:
@@ -210,22 +234,10 @@ Lastly, unmount root:
 Now you may reboot:
 > reboot
 
-
 ### Post-Installation
 A problem you might run into is with internet after finishing the installation.
-
-What to do if iwd doesn't pick up eth0 or wlan0:
-> systemctl enable rfkill-unblock@all
 
 What to do if dhcp doesn't work on startup:
 > ip link set wlan0 up
 
 > dhclient wlan0
-
-If you're using ethernet, replace wlan0 with eth0.
-
-### A note on EFI
-You may be wondering why I say to follow this guide as is, even if you do not have and EFI motherboard. Well, it still just works. I have three devices without EFI, and this is exactly how I installed Arch and Gentoo on them.
-Why does this work? This configuration is functional for all systems, regardless. Boot partitioning is arbitrary on non-efi systems. EFI has a particular setup for booting, which is why you MUST follow this for EFI systems.
-
-If you had any trouble, feel free to contact me via email at nickolas@nliaquin.xyz and feel free to check out my other guides and repos at https://github.com/nliaquin
