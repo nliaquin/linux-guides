@@ -5,6 +5,7 @@ If you want to be a good sysadmin, you need to learn some basic tricks to gettin
  - [Multiple Commands in One Line](#multiple-commands-in-one-line)
  - [Alternatives to cd and ls](#alternatives-to-cd-and-ls)
  - [File Gobbling](#file-gobbling)
+ - [Conclusion](#conclusion)
 
 ### Multiple Commands in One Line
 If you wish to be efficient with the shell, you can't rely on running every command one by one. Sometimes, you need to run commands simultaneously, or successively one after the other.
@@ -91,4 +92,7 @@ And let's say you just want to print out files ending with a or A:
 Finally, let's print out all files not ending in 3:
 > ls *[!3]
 
+### Conclusion
+I hope that this guide provided some quick use to you. Knowing everything I taught you above, you should now be able to start coming up with new use-cases for these tactics on different scenarios, and possible come up with your own combination of commands that serve useful.
 
+If you have any questions, as always, feel free to email me at nickolas@nliaquin.xyz
