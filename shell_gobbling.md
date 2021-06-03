@@ -4,8 +4,7 @@ If you want to be a good sysadmin, you need to learn some basic tricks to gettin
 ### Table of contents
  - [Multiple Commands in One Line](#multiple-commands-in-one-line)
  - [Alternatives to cd and ls](#alternatives-to-cd-and-ls)
- - [](#)
- - [](#)
+ - [File Gobbling](#file-gobbling)
 
 ### Multiple Commands in One Line
 If you wish to be efficient with the shell, you can't rely on running every command one by one. Sometimes, you need to run commands simultaneously, or successively one after the other.
@@ -32,5 +31,64 @@ You can use pushd to change directories:
 > pushd ~
 
 This example changes your current directory to the home directory. There may be some use to this, for example, if you installed an instance of Linux that, for some reason, lacked coreutils. It happens.
+
+### File Gobbling
+Let's say you have the following files in a directory:
+filea
+fileb
+filec
+FileA
+FileB
+FileC
+file1
+file2
+file3
+File11
+File12
+File13
+
+Let's say we need to list groups of these files based on certain characters and capitlization; you can make these files using the *touch* command and follow along yourself:
+
+To list all files that start with lowercase f:
+> ls file*
+
+or
+
+> ls f*
+
+To list all files that start with uppercase F:
+> ls File*
+
+or
+
+> ls F*
+
+
+Those were the easy ones, now let's say we need to list all files ending with numbers:
+> ls *[0-9]
+
+This is a range. Anything between [ and ] is considered a range, and we can do the same with letters, too.
+
+Let's only list files ending in letters a-z:
+> ls *[a-z]
+
+But you'll notice this only printed files ending with lowercase letters.
+
+Here's how to print both files ending with both uppercase and lowercase:
+> ls *[a-z] ; ls *[A-Z]
+
+And if you just wanted files ending in uppercase, then you would just type in the second part of the previous command.
+
+Now what if you wanted to print out files beggining with f or F and ending in numbers:
+> ls [fF]*[0-9]
+
+Let's say you wanted to print all files either ending in 1 or 3:
+> ls *[13]
+
+And let's say you just want to print out files ending with a or A:
+> ls *[aA]
+
+Finally, let's print out all files not ending in 3:
+> ls *[!3]
 
 
