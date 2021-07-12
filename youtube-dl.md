@@ -76,39 +76,25 @@ If you want to control the format you export, you can use the -F command to see 
 
 This will output something like the following...
 
-``139          m4a        audio only DASH audio   52k , m4a_dash container, mp4a.40.5 (22050Hz), 15.37MiB``
-
-``251          webm       audio only tiny  112k , webm_dash container, opus @112k (48000Hz), 35.32MiB``
-
-``140          m4a        audio only tiny  129k , m4a_dash container, mp4a.40.2@129k (44100Hz), 40.78MiB``
-
-``278          webm       256x144    DASH video   95k , webm_dash container, vp9, 30fps, video only``
-
-``160          mp4        256x144    DASH video  108k , mp4_dash container, avc1.4d400b, 30fps, video only``
-
-``242          webm       426x240    DASH video  220k , webm_dash container, vp9, 30fps, video only``
-
-``133          mp4        426x240    DASH video  242k , mp4_dash container, avc1.4d400c, 30fps, video only``
-
-``134          mp4        640x360    360p   85k , mp4_dash container, avc1.4d401e@  85k, 30fps, video only, 26.78MiB``
-
-``243          webm       640x360    DASH video  405k , webm_dash container, vp9, 30fps, video only``
-
-``244          webm       854x480    DASH video  752k , webm_dash container, vp9, 30fps, video only``
-
-``135          mp4        854x480    DASH video 1155k , mp4_dash container, avc1.4d4014, 30fps, video only``
-
-``247          webm       1280x720   DASH video 1505k , webm_dash container, vp9, 30fps, video only``
-
-``136          mp4        1280x720   DASH video 2310k , mp4_dash container, avc1.4d400b, 30fps, video only``
-
-``137          mp4        1920x1080  1080p  498k , mp4_dash container, avc1.640028@ 498k, 30fps, video only, 157.15MiB``
-
-``248          webm       1920x1080  DASH video 2646k , webm_dash container, vp9, 30fps, video only``
-
-``18           mp4        640x360    360p  199k , avc1.42001E, 30fps, mp4a.40.2 (44100Hz), 62.74MiB``
-
-``22           mp4        1280x720   720p  402k , avc1.64001F, 30fps, mp4a.40.2 (44100Hz) (best)``
+```bash
+139          m4a        audio only DASH audio   52k , m4a_dash container, mp4a.40.5 (22050Hz), 15.37MiB
+251          webm       audio only tiny  112k , webm_dash container, opus @112k (48000Hz), 35.32MiB
+140          m4a        audio only tiny  129k , m4a_dash container, mp4a.40.2@129k (44100Hz), 40.78MiB
+278          webm       256x144    DASH video   95k , webm_dash container, vp9, 30fps, video only
+160          mp4        256x144    DASH video  108k , mp4_dash container, avc1.4d400b, 30fps, video only
+242          webm       426x240    DASH video  220k , webm_dash container, vp9, 30fps, video only
+133          mp4        426x240    DASH video  242k , mp4_dash container, avc1.4d400c, 30fps, video only
+134          mp4        640x360    360p   85k , mp4_dash container, avc1.4d401e@  85k, 30fps, video only, 26.78MiB
+243          webm       640x360    DASH video  405k , webm_dash container, vp9, 30fps, video only
+244          webm       854x480    DASH video  752k , webm_dash container, vp9, 30fps, video only
+135          mp4        854x480    DASH video 1155k , mp4_dash container, avc1.4d4014, 30fps, video only
+247          webm       1280x720   DASH video 1505k , webm_dash container, vp9, 30fps, video only
+136          mp4        1280x720   DASH video 2310k , mp4_dash container, avc1.4d400b, 30fps, video only
+137          mp4        1920x1080  1080p  498k , mp4_dash container, avc1.640028@ 498k, 30fps, video only, 157.15MiB
+248          webm       1920x1080  DASH video 2646k , webm_dash container, vp9, 30fps, video only
+18           mp4        640x360    360p  199k , avc1.42001E, 30fps, mp4a.40.2 (44100Hz), 62.74MiB
+22           mp4        1280x720   720p  402k , avc1.64001F, 30fps, mp4a.40.2 (44100Hz) (best)
+```
 
 The number furthest to the left is the format number. Notice the second column is the available formats corresponding to the format number. You could download a video as an mp3 or m4a for audio only. Pay close attention to the far right where some formats say *video only*. To state the abvious, this means there is no audio for this format.
 
