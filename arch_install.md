@@ -78,15 +78,13 @@ Confirm you did all that correctly by typing:
 
 If everything was done correctly, you should see something like this:
 
-`sda`
-
-`|-sda1     512M`
-
-`|-sda2     25G`
-
-`|-sda3     4G`
-
-`'sda4      whatever you had left after the first 3 partitions`
+```bash
+sda
+|-sda1     512M
+|-sda2     25G`
+|-sda3     4G
+'sda4      whatever you had left after the first 3 partitions
+```
 
 Next, lets format by doing executing the following commands:
 > mkfs.fat -F32 /dev/sda1
@@ -192,11 +190,11 @@ Next, use vim or nano to modify your system's hosts file:
 
 Once in editing mode, write out the following, given you went with arch-laptop as your host name:
 
-`127.0.0.1   localhost`
-
-`::1         localhost`
-
-`127.0.1.1   arch-laptop.localdomain arch-laptop`
+```bash
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   arch-laptop.localdomain arch-laptop
+```
 
 Now you'll want to enable iwd and dhcpcd at startup so that networking just works on boot:
 > systemctl enable iwd
