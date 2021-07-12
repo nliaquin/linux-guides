@@ -91,7 +91,10 @@ Run the following command to install lightdm:
 > sudo apt install lightdm
 
 On Arch distros, you'll want
-> sudo pacman -S xorg xorg-xinit lightdm lightdm-gtk-greeter
+> sudo pacman -S xorg xorg-xinit lightdm lightdm-gtk-greeter lightdm-gtk-greeter
+
+Also, enable lightdm with systemd:
+> sudo systemctl enable lightdm
 
 We don't really have to navigate anywhere to do this next part, you can simply run the following command:
 > sudo vim /usr/share/xsessions/dwm.desktop
@@ -99,20 +102,15 @@ We don't really have to navigate anywhere to do this next part, you can simply r
 What we're doing is creating a file recognized by lightdm as a *desktop entry* for dwm. Installing Xfce4 or Gnome will always create desktop entries for you, but dwm requires us to set it up ourselves. Press *i* or the *insert* key to enter write mode in this file, then enter the following information:
 
 
-`[Desktop Entry]`
-
-`Encoding=UTF-8`
-
-`Name=dwm`
-
-`Comment=Suckless dynamic window manager`
-
-`Exec=dwm`
-
-`Icon=dwm`
-
-`Type=XSession`
-
+```bash
+[Desktop Entry]
+Encoding=UTF-8
+Name=dwm
+Comment=Suckless dynamic window manager
+Exec=dwm
+Icon=dwm
+Type=XSession
+```
 
 Press the escape key and type in the following to save and quit:
 > :wq!
@@ -124,11 +122,7 @@ Then in .xsession, write:
 > sh .startup.sh
 
 Now all that's left is to reboot, which is best done by entering 
-> sudo reboot
+> reboot
 
 ### Step 5 | Aftermath
-After rebooting, you may notice your monitors are not ordered correctly, given you have multiple monitors. Please check the guide titled *xrandr-reorder-monitors* to learn how to resolve this, and to also learn some tips on how to make good use of xrandr.
-
-If you notice only a black screen when rebooting, this is likely because you already had proprietary drivers or nvidia drivers installed to manage your display. This guide supports xorg and xsessions, but I unfortunately do not have any advice for nvidia gpu owners at this time. I am also having issues with nvidia on Debian-based distros while running dwm, and quite frankly, you're better off using PopOS or Manjaro for that sort of thing.
-
-If you have any questions or would like some help, email me at nickolas@nliaquin.xyz
+After rebooting, you may notice your monitors are not ordered correctly, given you have multiple monitors. Please check the guide titled *xrandr-reorder-monitors* to learn how to resolve this, and to also learn some tips on how to make good use of xrandr. If you have any questions or would like some help, email me at nickolas@nliaquin.xyz
