@@ -81,7 +81,7 @@ If everything was done correctly, you should see something like this:
 ```bash
 sda
 |-sda1     512M
-|-sda2     25G`
+|-sda2     25G
 |-sda3     4G
 'sda4      whatever you had left after the first 3 partitions
 ```
