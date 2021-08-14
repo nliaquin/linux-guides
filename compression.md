@@ -55,6 +55,9 @@ Here are what these flags are doing:
 -f specifies that we are working with a file archive
 ```
 
+Now if you don't know what is inside of a tar.gz, you can preview the contents with the following:
+> tar -tvf myzip.tar.gz
+
 Okay, now let's untar and gunzip myzip.tar.gz:
 > tar -zxvf myzip.tar.gz
 
