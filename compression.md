@@ -40,6 +40,22 @@ Now to unzip the myzip compressed file, you simply say:
 That's it!
 
 
+### 7z files
+
+7zip is not the most common compression method, but these files are out there. Unfortunately, the previous method mentioned will not work on 7z files. On most distros, the program provided by the default package manager is p7zip. This program will both compress and uncompress 7z files on its own.
+
+To extract everything in the proper format it was originally compressed in (with all file and folder structures in tact):
+> 7z x *example.7z*
+
+To archive a file/folder:
+> 7z a *archive name* *file/folder to archive*
+
+To see the contents of a 7z file:
+> 7z l *example.7z*
+
+There's not much else to p7zip, but I recommend not using this form of compression if you are trying to archive (fully preserve) everything with the original metadata tied to it (such as users, dates, permissions, etc).
+
+
 ### Tar/Gzip
 
 The method built into every Linux distro would be tar.gz which is actually two programs combined. Gzip is for zipping individual files. It does not zip more than one file at a time, and this is because a common problem with zip files a long time ago was data loss on unzipping. When a bunch of files got zipped together, some programs would scramble the data up, and then unzipping would reveal some unexpected data loss due to the data not being restored as it was before getting zipped. Tar is for tarring zipped files together in a safe way that wouldn't scramble things up.
