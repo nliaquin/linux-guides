@@ -1,5 +1,7 @@
-# Installing Arch Linux (Manually)
-As of May 2021, Arch Linux officially comes with a guided installer. However, it's not what everyone expected... While some will be resorting to automatically installing Arch Linux from now on, many users will still install Arch manually from the ground up. Installing Arch the traditional way, much like installing older Linux distros before guided installations became the norm, is a matter of practice and having the right guide. The Arch wiki has a page dedicated to the manual install process, but many details are not fleshed out and require users to go down rabbit holes of wiki-page after wiki-page to get a full picture. In this guide, I'm not only going to show you how to install Arch, I'm going to instruct you on how to best optimize your installation, as well as how to install the boot loader and a few extra important details the Arch wiki does not cover.
+# Installing Arch Linux, Manually, Fast, and Efficiently
+### Last Updated: November 6th, 2021
+
+Many new Linux users look at Arch as one of the final bosses of distro hopping, and some even outright say it's one of the hardest distros to install, but it's actually not! Some have opted to use the recently released guided installer, which is just a python script that comes with the image, but it occasionally flubs up and leaves you with issues. In this guide, I'm going to show you how to manually install Arch Linux fast and efficiently with some sections that even the installaion wiki doesn't tell you about.
 
 ### Table of Contents
 - [Checking the EFI Status](#checking-the-efi-status)
@@ -8,7 +10,7 @@ As of May 2021, Arch Linux officially comes with a guided installer. However, it
 - [Partitioning Your Hard Drive](#partitioning-your-hard-drive)
 - [Mounting the Partitions](#mounting-the-partitions)
 - [Setting Pacman Mirrors](#setting-pacman-mirrors)
-- [Pacstrapping root](#pacstrapping-root)
+- [Pacstrapping](#pacstrapping)
 - [Generating fstab](#generating-fstab)
 - [Chrooting In](#chrooting-in)
 - [Setting the Timezone](#setting-the-timezone)
@@ -24,12 +26,13 @@ All modern computers are EFI-boot, but you might be working with an older mother
 To check, enter:
 > ls /sys/firmware/efi/efivars
 
-One of two outcomes occur. Either you'll see a whole bunch of output, an error, or nothing at all. If you see a whole bunch of output on the screen, that means you have efi vars, and thus, efi. Had there been an error, or nothing at all, this means you have BIOS-boot. This only affects one factor of the installation, the boot loader. Don't worry about this for now and continue.
+One of two outcomes occur. Either you'll see a whole bunch of output, an error, or nothing at all. If you see a whole bunch of output on the screen, that means you have efi vars, and thus, efi. If no output is given, or an error saying the direcory does not exist, this means you have BIOS-boot. This does impact two of the steps later in the installation, so take careful note as to what the output was.
+
 
 ### Connecting to the internet
-The Arch installation medium unfortunately will take you very far without an internet connection. This is because Arch is a minimalast distro which only contains a small numbe rof pre-installed utilities, such as standard GNU and Linux programs, shells, etc. You'll have to learn how to connect to wifi via the commandline if you don't have ethernet, but don't fret! A newer utility called iwd comes standard with the Arch installation medium. This program is far easier to use compared to NetworkManager, which is soon to be deprecated, or at least will be phased out once a number of desktop environments no longer depend on it.
+In recent years, the Arch installation image comes with a very easy to use wifi commandline program called **iwd** which does not require as much setup as NetworkManager does.
 
-For reference, iwd is spawned via the commandline as follows:
+Start iwd from the commandline with the following command:
 > iwctl
 
 You'll be put into a commandline interface, and you'll now want to list your network devices:
@@ -56,9 +59,11 @@ After exiting iwd, enter the following to test your connection:
 
 This just pings 3 times so you don't have to cancel or exit the ping program.
 
+
 ### Updating the System Clock
 If the system clock is innacurate, there will be complications regarding the package manager. Enter the following to ensure that your system clock will be accurate during installation:
 > timedatectl set-ntp true
+
 
 ### Partitioning Your Hard Drive
 There are a number of ways to partition your hard drive for any Linux distro, but I prefer to use **cfdisk** to partition my disks. I also prefer a boot partition, a root partition, a swap partition, and a home partition, all in that order. Boot, Root, Swap, Home. Remember that for all future Linux Distro installations, as this applies to all distros.
@@ -121,6 +126,7 @@ Lastly, we mount home:
 
 > mount /dev/sda4 /mnt/home
 
+
 ### Setting Pacman Mirrors
 This is an optional step that can be beneficial in two ways: the first being faster download speeds when installing or updating packages. The second being that if you're on campus wifi, work wifi, or any network that is not your own, meaning you did not configure it, mirrorlists are a potential step to getting around blacklisted sites on the network. If you find yourself unable to download any packages while on a given connection, and you're not using a mirrorlist, I heavily encourage doing this.
 
@@ -145,20 +151,24 @@ Simply move the mirrorlist to the following destination:
 
 I keep this list updated once a month as a convenience. Feel free to use it yourself from now on when it's time to update your mirrors.
 
-### Pacstrapping root
+
+### Pacstrapping
 Usually during this step, people just install the standard packages, but I think this is actually a good time to install some other essentials like iwd, which does not come with Arch post-installation, dhcpcd, which will help with resolving hosts when you boot in post-installation, and other great utilities:
 
 > pacstrap /mnt base base-devel linux linux-firmware iwd efibootmgr vim git dhcpcd dhclient bash man-db man-pages texinfo openssh sudo
 
 This is a ton of stuff to help you get going, but it's not everything. This does not cover graphical environments, video, audio, etc. I have more guides on that at https://github.com/nliaquin/linux-guides
 
+
 ### Generating fstab
 In order to boot properly into the system each time we start up, you need to create a table with all of the partition mapping information in /etc/fstab:
 > genfstab -U /mnt >> /mnt/etc/fstab
 
+
 ### Chrooting In
 This next step will allow you to modify your base Arch system before you even finish installing it. Basically, you're about to start modifying your distro as if it's already installed before you even run it. Chrooting into Linux has a number of different use-cases, such as system recovery. From this point forward, everything we do directly affects Arch post-installation:
 > arch-chroot /mnt
+
 
 ### Setting the Timezone
 Let's say you live in New York, you would run the following:
@@ -168,6 +178,7 @@ If you lived in Detroit, you would have written America/Detroit instead.
 
 Adjust the time to fit that region change:
 > hwclock --systohc
+
 
 ### Configuring Localization
 Use nano or vim to modify /etc/locale.gen and uncomment out the line down below where it just says the following:
@@ -180,6 +191,7 @@ Set the encoding language to, for instance, UTF-8 for US computers:
 > echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 This just ensures that when programs look for your locale, they can default to it instead of C. Most programs will default to C if this isn't done, which is fine, but you'll just keep getting errors every time you run programs looking for the locale.gen value while still doing what you've asked.
+
 
 ### Configuring Networking
 Giving your machine a host identity is crucial, as Linux requires a hostname in order for certain networking functions to work properly. Let's say we're naming our machine arch-laptop:
@@ -204,11 +216,13 @@ Now you'll want to enable iwd and dhcpcd at startup so that networking just work
 Lastly, if you had to use rfkill in order to unblock wlan0, run the following command:
 > systemctl enable rfkill-unblock@all
 
+
 ### Setting Root Password
 Because we need to log into Arch as root post-installation on the first go, you need to set a root password before you forget like so:
 > passwd
 
 You'll get a message asking you to set the password. Set it to something good, but don't plan on using root as your main user. Many programs will not allow this in the Linux community.
+
 
 ### Installing and Configuring GRUB
 Grub is the bootloader that gives you the ability to actually start Linux after booting. You'll need to first download grub like so:
@@ -232,6 +246,9 @@ Lastly, unmount root:
 Now you may reboot:
 > reboot
 
+Although, I prefer to shutdown instead, unplug my usb installation medium, and then start back up. A lot of EFI systems tend to try and boot automatically back into a bootable usb stick lately, including newer Thinkpads.
+
+
 ### Post-Installation
 A problem you might run into is with internet after finishing the installation.
 
@@ -239,3 +256,27 @@ What to do if dhcp doesn't work on startup:
 > ip link set wlan0 up
 
 > dhclient wlan0
+
+You also want to set up another non-root account before you just start ricing, so do the following:
+> useradd -m -G wheel -s /bin/bash **username**
+
+If you're wondering, the -m flag is to create a user directory named after the username in /home. The -G flag is for group, and whatever text that follows between the -G flag and the next flag will be the groups this user is in. The wheel group is for users who will have been granted sudo. The -s flag is for which shell this user will have by default. I prefer bash, but you can use whichever you like.
+
+You need to also set a password for the user:
+> passwd **username**
+
+You'll be asked to enter a password, and to also confirm the password.
+
+Lastly, we need to go into /etc/sudoers with vim:
+> vim /etc/sudoers
+
+This file is long, so type */wheel* and hit enter to find the line that looks like this:
+```bash
+# wheel ALL=(ALL) ALL
+```
+
+and uncomment it by removing the pound symbol. This way, your new user and actually use administrative commands via sudo.
+
+You should now log into this account from now on, and never use root unless it's for system recovery purposes, or if you plan on whiping away all accounts and starting fresh in the system.
+
+That's everything you needed to know for both installation and post-installation, and if you have any questions, email me: nickolas@nliaquin.xyz
