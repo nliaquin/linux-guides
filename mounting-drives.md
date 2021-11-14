@@ -161,7 +161,7 @@ Assuming the SSD is one terabyte, we have verified that Linux acknowledges it is
 
 It would also be a good idea to make sure you change the owner of this directory to your user so that problems do not arise when reading or writing data in this directory:
 
-> sudo chown *your username*:*your username* /mnt/data/
+> sudo chown *username*:*username* /mnt/data/
 
 We have now created a good place to map this drive in /etc/fstab. First, let's just take a look at an example of what your fstab file looks like right now:
 
