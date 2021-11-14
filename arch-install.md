@@ -4,8 +4,10 @@
 Many new Linux users look at Arch as one of the final bosses of distro hopping, and some even outright say it's one of the hardest distros to install, but it's actually not! Some have opted to use the recently released guided installer, which is just a python script that comes with the image, but it occasionally flubs up and leaves you with issues. In this guide, I'm going to show you how to manually install Arch Linux fast and efficiently with some sections that even the installaion wiki doesn't tell you about.
 
 ### Table of Contents
-- [Checking the EFI Status](#checking-the-efi-status)
+- [Disable pcspkr Module](#disable-pcspkr-module)
 - [Connecting to the internet](#connecting-to-the-internet)
+- [Brightness Problem on Laptops](#brightness-problem-on-laptops)
+- [Checking the EFI Status](#checking-the-efi-status)
 - [Updating the System Clock](#updating-the-system-clock)
 - [Partitioning Your Hard Drive](#partitioning-your-hard-drive)
 - [Mounting the Partitions](#mounting-the-partitions)
@@ -20,13 +22,13 @@ Many new Linux users look at Arch as one of the final bosses of distro hopping, 
 - [Installing and Configuring GRUB](#installing-and-configuring-grub)
 - [Post-Installation](#post-installation)
 
-### Checking the EFI Status
-All modern computers are EFI-boot, but you might be working with an older motherboard, so you'll want to make sure you know whether or not your computer is using EFI.
 
-To check, enter:
-> ls /sys/firmware/efi/efivars
+### Disable pcspkr Module
+First of all, you're going to notice that nearly every time to tab to autocomplete while installing linux, there will be a loud, obnoxious beep. This is called the pcspkr module. Nearly every Arch user disables this right away. To do so, enter the following:
 
-One of two outcomes occur. Either you'll see a whole bunch of output, an error, or nothing at all. If you see a whole bunch of output on the screen, that means you have efi vars, and thus, efi. If no output is given, or an error saying the direcory does not exist, this means you have BIOS-boot. This does impact two of the steps later in the installation, so take careful note as to what the output was.
+> rmmod pcspkr
+
+At the end of the guide, there will be a small instruction on how to disable this permanently after you finish installing Arch.
 
 
 ### Connecting to the internet
@@ -58,6 +60,28 @@ After exiting iwd, enter the following to test your connection:
 > ping -c3 google.com
 
 This just pings 3 times so you don't have to cancel or exit the ping program.
+
+
+### Brightness Problem on Laptops
+You're going to notice the screen is really dark on some laptops. This is because your laptop has given a ctl module a value indicating that the power is too low, or the laptop is unplugged. The default behavior is to respond by lowering backlight brightness to reserve battery. Sometimes this just triggers despite being fully charged, so do the following:
+> pacman -Syy
+
+After this finishes synching with the repositories, you're going to want to download the following package:
+> pacman -S brightnessctl
+
+After installing, enter this a couple times until you reach the desired brightness level:
+> brightnessctl set 10%+
+
+
+### Checking the EFI Status
+All modern computers are EFI-boot, but you might be working with an older motherboard, so you'll want to make sure you know whether or not your computer is using EFI.
+
+To check, enter:
+> ls /sys/firmware/efi/efivars
+
+One of two outcomes occur. Either you'll see a whole bunch of output, an error, or nothing at all. If you see a whole bunch of output on the screen, that means you have efi vars, and thus, efi. If no output is given, or an error saying the direcory does not exist, this means you have BIOS-boot. This does impact two of the steps later in the installation, so take careful note as to what the output was.
+
+
 
 
 ### Updating the System Clock
@@ -155,9 +179,9 @@ I keep this list updated once a month as a convenience. Feel free to use it your
 ### Pacstrapping
 Usually during this step, people just install the standard packages, but I think this is actually a good time to install some other essentials like iwd, which does not come with Arch post-installation, dhcpcd, which will help with resolving hosts when you boot in post-installation, and other great utilities:
 
-> pacstrap /mnt base base-devel linux linux-firmware iwd efibootmgr vim git dhcpcd dhclient bash man-db man-pages texinfo openssh polkit sudo
+> pacstrap /mnt base base-devel linux linux-firmware iwd w3m efibootmgr vim git dhcpcd dhclient bash man-db man-pages texinfo openssh polkit sudo brightnessctl
 
-This is a ton of stuff to help you get going, but it's not everything. This does not cover graphical environments, video, audio, etc. I have more guides on that at https://github.com/nliaquin/linux-guides
+This is a ton of stuff to help you get going, but if you want to know what all of it does, you can look up the package name, or use man *package-name* after finishing installation.
 
 
 ### Generating fstab
@@ -278,5 +302,11 @@ This file is long, so type */wheel* and hit enter to find the line that looks li
 and uncomment it by removing the pound symbol. This way, your new user and actually use administrative commands via sudo.
 
 You should now log into this account from now on, and never use root unless it's for system recovery purposes, or if you plan on whiping away all accounts and starting fresh in the system.
+
+Lastly, let's permanently disable the pcspkr module. Use a text editor to create the following file: **/etc/modprobe.d/nobeep.conf** and then enter this text into the file:
+
+> blacklist pcspkr
+
+No more obnoxious beeping.
 
 That's everything you needed to know for both installation and post-installation, and if you have any questions, email me: nickolas@nliaquin.xyz
