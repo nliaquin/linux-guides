@@ -6,6 +6,7 @@ When installing suckless software, please be sure to start with this guide (dwm.
  - [Preliminaries](#preliminaries)
  - [Downloading suckless dwm](#downloading-suckless-dwm)
  - [Configuring suckless dwm](#configuring-suckless-dwm)
+ - [Compiling suckless dwm](#compiling-suckless-dwm)
 
 
 ### Preliminaries
