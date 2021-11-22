@@ -1,5 +1,5 @@
 # suckless dwm Installation and Configuration
-When installing suckless software, please be sure to start with this guide (dwm.md) or the dmenu guide (dmenu.md) before you move onto any other suckless guide. The other guides won't work until you start with this one or the dmenu one!
+Please be sure to complete this guide, the **dmenu.md** guide, and the **xorg-config.md** guide before moving onto any other guide in **suckless-software**.
 
 
 ### Table of Contents
@@ -17,12 +17,12 @@ You are going to need to install the following software:
 
 Run the following if you are on a Debian-based distro:
 ```bash
-sudo apt install build-essential git xorg libx11-dev libxinerama-dev libxft-dev libwebkit2gtk-4.0-dev
+sudo apt install git xorg libx11-dev libxinerama-dev libxft-dev libwebkit2gtk-4.0-dev build-essential
 ```
 
 Run the following if you are on an Arch-based distro:
 ```bash
-sudo pacman -S xorg xorg-xinit base-devel
+sudo pacman -S git xorg xorg-xinit base-devel
 ```
 
 ### Downloading suckless dwm
