@@ -1,6 +1,5 @@
 # dwm Configurations
-I'm just going to throw in some misc configurations that are geared towards dwm and other desktop-environment free settings.
-
+This is where I will store misc dwm configurations you might want to add.
 
 ### Setting GTK Themes and Icons
 First you need to place your themes into `/usr/share/themes` and your icons into `/usr/share/icons`.
