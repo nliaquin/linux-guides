@@ -1,5 +1,4 @@
 # How to compress files and directories on Linux
-
 If you've been using Linux for a short time, you may start asking certain questions about features you may have used on Windows that you now require on Linux. One of those features is zip compression. First, I'd like to mention that you can still zip and unzip on Linux, but there is a more effective method built into all Linux distros that has helped prevent complications called tar.gz. First we'll go over zip/unzip.
 
 
@@ -7,35 +6,53 @@ If you've been using Linux for a short time, you may start asking certain questi
 This program is not built into every Linux distro, so you will need to consult your package manager software to see if the program is either installed or is available in your repo list with a search.
 
 On distros with Aptitude package manager:
-> apt search zip unzip
+```bash
+apt search zip unzip
+```
 
 Then to install with Aptitude:
-> sudo apt install zip unzip
+```bash
+sudo apt install zip unzip
+```
 
 zip and unzip are the general names of these programs, though they may differ between different Linux distros, by the way.
 
 On distros with Pacman:
-> pacman -Ss zip unzip
+```bash
+pacman -Ss zip unzip
+```
 
 Then to install with Pacman:
-> sudo pacman -S zip unzip
+```bash
+sudo pacman -S zip unzip
+```
 
 On distros with Yum:
-> yum search zip unzip
+```bash
+yum search zip unzip
+```
 
 Then to install with Yum:
-> sudo yum install zip unzip
+```bash
+sudo yum install zip unzip
+```
 
 Once you install or confirm that zip and unzip are installed, you can now zip and unzip files in the commandline. For example, let's say I have a directory named photos, and I need to compress them to send over an email.
 
 While outside of the directory called photos, type
-> zip -r photos photos/
+```bash
+zip -r photos photos/
+```
 
 To be clear here, I am using -r for recursive, meaning everything in the directory gets compressed with into the zip file. If you exclude -r, you're not compressing any files inside, and you will end up with an empty zip file. Next I wrote photos, which is what I want the name of my zip file to be, and .zip is automatically appended at the end. Next I wrote what directory I wanted to zip, which as I mentioned above, is my photos directory. I should also mention that you can specify more files and folders after photos/, like if you wanted to zip a directory named photos/ and a directory named videos/ at one time into a zip file called **myzip** as well, you can change the command to the following:
-> zip -r myzip photos/ videos/
+```bash
+zip -r myzip photos/ videos/
+```
 
 Now to unzip the myzip compressed file, you simply say:
-> unzip myzip.zip
+```bash
+unzip myzip.zip
+```
 
 That's it!
 
@@ -45,13 +62,19 @@ That's it!
 7zip is not the most common compression method, but these files are out there. Unfortunately, the previous method mentioned will not work on 7z files. On most distros, the program provided by the default package manager is p7zip. This program will both compress and uncompress 7z files on its own.
 
 To extract everything in the proper format it was originally compressed in (with all file and folder structures in tact):
-> 7z x *example.7z*
+```bash
+7z x *example.7z*
+```
 
 To archive a file/folder:
-> 7z a *archive name* *file/folder to archive*
+```bash
+7z a *archive name* *file/folder to archive*
+```
 
 To see the contents of a 7z file:
-> 7z l *example.7z*
+```bash
+7z l *example.7z*
+```
 
 There's not much else to p7zip, but I recommend not using this form of compression if you are trying to archive (fully preserve) everything with the original metadata tied to it (such as users, dates, permissions, etc).
 
@@ -61,7 +84,9 @@ There's not much else to p7zip, but I recommend not using this form of compressi
 The method built into every Linux distro would be tar.gz which is actually two programs combined. Gzip is for zipping individual files. It does not zip more than one file at a time, and this is because a common problem with zip files a long time ago was data loss on unzipping. When a bunch of files got zipped together, some programs would scramble the data up, and then unzipping would reveal some unexpected data loss due to the data not being restored as it was before getting zipped. Tar is for tarring zipped files together in a safe way that wouldn't scramble things up.
 
 The best part about this is that you can both tar and gzip in one command, there is no need to call the separate programs. Using our same example above, I want to tar.gz my videos/ and photos/ directories into a compressed file called myzip.tar.gz:
-> tar -zcvf myzip.tar.gz photos/ videos/
+```bash
+tar -zcvf myzip.tar.gz photos/ videos/
+```
 
 Here are what these flags are doing:
 ```bash
@@ -72,10 +97,14 @@ Here are what these flags are doing:
 ```
 
 Now if you don't know what is inside of a tar.gz, you can preview the contents with the following:
-> tar -tvf myzip.tar.gz
+```bash
+tar -tvf myzip.tar.gz
+```
 
 Okay, now let's untar and gunzip myzip.tar.gz:
-> tar -zxvf myzip.tar.gz
+```bash
+tar -zxvf myzip.tar.gz
+```
 
 We changed one flag, -c is now -x, which stands for extract.
 
