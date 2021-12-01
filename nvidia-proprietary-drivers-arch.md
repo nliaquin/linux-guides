@@ -2,7 +2,9 @@
 In this guide, we'll cover how to improve your Nvidia GPU performance on Arch by installing the proprietary drivers and making some optimizations. Read carefully, take it slow, copy and paste if needed, and try to understand what you're doing as you follow along so that any necessary troubleshooting isn't too lengthy or difficult afterwards.
 
 First we need to modify pacman's configuration file in a text editor with root privileges, ex. vim, nano:
-> sudo vim /etc/pacman.conf
+```bash
+sudo vim /etc/pacman.conf
+```
 
 Find a commented out section that looks like the following and remove the pound signs to uncomment
 ```bash
@@ -11,13 +13,19 @@ Find a commented out section that looks like the following and remove the pound 
 ```
 
 Then update your pacman databases:
-> sudo pacman -Syy
+```bash
+sudo pacman -Syy
+```
 
 Now create a directory in /etc/pacman.d/ called hooks:
-> sudo mkdir /etc/pacman.d/hooks
+```bash
+sudo mkdir /etc/pacman.d/hooks
+```
 
 And then use a text editor to create a file called nvidia.hook in the new directory:
-> sudo vim /etc/pacman.d/hooks/nvidia.hook
+```bash
+sudo vim /etc/pacman.d/hooks/nvidia.hook
+```
 
 And enter the following information into the text editor as is:
 ```bash
@@ -41,7 +49,9 @@ Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /
 This way we can create a rule list for Nvidia drivers to prevent downloading the wrong drivers.
 
 Now create a file in /etc/modprobe.d called blacklist-nvidia-nouveau.conf with root privileges to block the open source drivers:
-> sudo vim /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+```bash
+sudo vim /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+```
 
 and enter the following text into the open file:
 ```bash
@@ -49,7 +59,9 @@ blacklist nouveau
 ```
 
 Now we need to create a configuration file for Nvidia cards on Xorg:
-> sudo vim /etc/X11/xorg.conf.d/20-nvidia.conf
+```bash
+sudo vim /etc/X11/xorg.conf.d/20-nvidia.conf
+```
 
 and enter the following text:
 ```bash
@@ -71,32 +83,40 @@ EndSection
 ```
 
 Now let's set it to where the Nvidia modules load on boot every time by modifying an existing file called mkinitcpio.conf:
-> sudo vim /etc/mkinitcpio.conf
+```bash
+sudo vim /etc/mkinitcpio.conf
+```
 
 Look for a section up top that looks like this:
-> MODULES=()
+```bash
+MODULES=()
+```
 
 Change it to look like this:
-> MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+```bash
+MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+```
 
 Then use the following command to run said changes:
-> sudo mkinitcpio -P linux
+```bash
+sudo mkinitcpio -P linux
+```
 
 Now modify you xinitrc file:
-> vim ~/.xinitrc
+```bash
+vim ~/.xinitrc
+```
 
 and add the following at the end:
 ```bash
 xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto
-exec i3 &>> "/var/log/i3.log"
 ```
 
 Now install the necessarry packages for Nvidia on Arch:
-> sudo pacman -S lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader nvidia nvidia-settings nvidia-utils nvtop
-
-While we're at it, let's install Wine and Lutris since I know you're here for gaming reasons, most likely:
-> sudo pacman -S wine-staging giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal v4l-utils lib32-v4l-utils libpulse lib32-libpulse libgpg-error lib32-libgpg-error alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjpeg-turbo lib32-libjpeg-turbo sqlite lib32-sqlite libxcomposite lib32-libxcomposite libxinerama lib32-libgcrypt libgcrypt lib32-libxinerama ncurses lib32-ncurses opencl-icd-loader lib32-opencl-icd-loader libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader lutris
+```bash
+sudo pacman -S lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader nvidia nvidia-settings nvidia-utils nvtop
+```
 
 Additional Note (7/12/21):
 Someone emailed me asking me how to set the default primary monitor. Invoke nvidia-settings as root, or use sudo, and go to the X Server Display Configuration tab. Your monitors will be visible on a grid, and you'll be able to move then around and select them. Select the monitor you want to be the primary monitor and then tick the "Make this the primary display for the X screen" checkbox at the very bottom of the form. Hit Apply, then press the "Save to X Configuration File" button. The reason you have to be root is because this file is in a root directory, not a user directory. Doing all this without sudo forces you to repeat the whole process.
