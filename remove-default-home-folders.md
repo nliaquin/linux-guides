@@ -11,13 +11,19 @@ Now I need to answer the question that should be on your mind right now, what is
 The hard part of reading all that preface and story is out of the way, now let's talk removing it. This program is split into several modules in the bin folder. Last I checked, all package managers view this program the same way.
 
 For pacman package manager:
-> pacman -R xdg-user-dirs*
+```bash
+pacman -R xdg-user-dirs*
+```
 
 For aptitude package manager:
-> apt --purge remove xdg-user-dirs*
+```bash
+apt --purge remove xdg-user-dirs*
+```
 
 For yum package manager:
-> yum remove xdg-user-dirs*
+```bash
+yum remove xdg-user-dirs*
+```
 
 ### Epilogue
 You might be asking "Why use the purge flag with apt?" Well, for whatever reason, I've found that not getting rid of the package and its files completely on certain distros allows it to come back on its own. I suspect this is after a system upgrade. 
