@@ -1,4 +1,4 @@
-# suckless slock Installation and Configuration
+# dwmblocks Installation and Configuration
 Please be sure to have completed the **dwm.md**, **dmenu.md**, and **xorg-config.md** guides before following this guide.
 
 Now that you've made it this far with installing and configuring dwm, you likely have already noticed there is a small string of text in the top-right corner. This is the version of dwm you're running, and it's not very useful. This guide will show you how to add a patch called dwmblocks that will allow you to configure this string very easily and conveniently.
