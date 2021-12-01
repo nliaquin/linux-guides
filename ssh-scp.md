@@ -1,5 +1,5 @@
-# Utilizing a Remote Server
-For this guide, I'm going to cover the various ways we can utilize a remote server. This guide gets into SSH, SCP, Apache, and *maybe* FTP. Whether you have a home server or a rented server through some third-party, this advice just works. Regardless if you're connecting to a remove server that runs Windows or Linux, so long as the machine you're using to connect to the remote server is running Linux, everything I tell you here will work. Most of these commands may also work on Windows, but Microsoft has changed a lot of the default programs throughout the years, so don't get your hopes up.
+# Utilizing ssh & scp
+This guide is going to cover the very basics of ssh (secure shell) and scp (secure copy). It may not seem like much, but these tools are two of the most useful programs to a sysadmin.
 
 ## Enabling Remote Connections
 Linux does not enable remote connections by default, nor does Windows (or so we believe). Granted you are running a Linux distro on the remote server that uses systemd, running the following command on your server machine (not your local machine) will enable remote connections from devices on the same network at home:
