@@ -1,78 +1,120 @@
 # Youtube DL Installation and Usage
-In this guide, I'm going to quickly show you how to install and use Youtube DL
+In this guide, I'm going to quickly show you how to install and use Youtube DL.
+**UPDATE**
+It's come to my attention that the standard youtube-dl program is downloading at very slow speeds for many lately. Alternatively, you can now use yt-dlp which is a fork of youtube-dl that uses slightly different methods of downloading and adds extra features.
 
 ### Installation
 Debian-Based Distros:
-> sudo apt install youtube-dl
+```bash
+sudo apt install youtube-dl yt-dlp
+```
 
 RedHat-Based Distros:
-> sudo yum install youtube-dl
+```bash
+sudo yum install youtube-dl yt-dlp
+```
 
 Arch-Based Distros:
-> sudo pacman -S youtube-dl
+```bash
+sudo pacman -S youtube-dl yt-dlp
+```
 
 If your distro doesn't have a repository with youtube-dl available, this is because some maintainers have chosen to exclude it for one reason or another. This next method will work on any distro, or even Windows, so long as you have Python or Python3 installed.
 
 First, don't just assume you already have python3 or pip, check:
-> which python3
+```bash
+which python3
+```
 
 If this returns the location of python3 on your filesystem, example **/usr/bin/python3**, then you already have Python3.
 
 If it returns **which: no python3 in (/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl)**, then you need to install Python3 ...
 Debian-Based Distros:
-> sudo apt install python3
+```bash
+sudo apt install python3
+```
 
 RedHat-Based Distros:
-> sudo yum install python3
+```bash
+sudo yum install python3
+```
 
 Arch-Based Distros:
-> sudo pacman -S python
+```bash
+sudo pacman -S python
+```
 
 Now check if you have pip like so:
-> which pip
+```bash
+which pip
+```
 
 If this returns **which: no pip in (/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl)**, install it like so...
 Debian-Based Distros:
-> sudo apt install pip
+```bash
+sudo apt install pip
+```
 
 RedHat-Based Distros:
-> sudo yum install pip
+```bash
+sudo yum install pip
+```
 
 Arch-Based Distros:
-> sudo pacman -S python-pip
+```bash
+sudo pacman -S python-pip
+```
 
 Finally, let's use pip to install youtube-dl:
-> python -m pip install youtube_dl
+```bash
+python -m pip install youtube_dl
+```
 
 Now to use youtube-dl this way, you need to type the following:
-> python3 -m youtube_dl
+```bash
+python3 -m youtube_dl
+```
 
 But you should modify your .bashrc to include the following alias at the end:
-> alias youtube-dl="python3 -m youtube_dl"
+```bash
+alias youtube-dl="python3 -m youtube_dl"
+```
 
 ### Usage
 To generally use youtube-dl, all you have to do is:
-> youtube-dl **link to video**
+```bash
+youtube-dl *link to video*
+```
 
 However, this just grabs a video without considering the export format, title, playlist, etc. You'll notice that if you download a video using the method above, you'll get a video format that youtube-dl considered to be the best for exporting, and you'll have a random string of characters at the end of the title before the extention.
 
 To download a video with the exact title it has, meaning no added characters, you can use one of two arguments below, or both...
 Using title specifiers:
-> youtube-dl -o '%(title)s%(ext)s' **link to video**
+```bash
+youtube-dl -o '%(title)s%(ext)s' *link to video*
+```
 
 Using --restrict-filenames:
-> youtube-dl **link to video** --restrict-filenames
+```bash
+youtube-dl **link to video** --restrict-filenames
+```
 
 Using both:
-> youtube-dl -o '%(title)s%(ext)s' **link to video** --restrict-filenames
+```bash
+youtube-dl -o '%(title)s%(ext)s' *link to video* --restrict-filenames
+```
 
 The last method is usually best suited in the case of the video title have special character, emoticons, etc.
 
 You can also download playlists with youtube-dl by doing the following:
-> youtube-dl -o '%(playlist_index)s-%(title)s%(ext)s' **link to playlist**
+```bash
+youtube-dl -o '%(playlist_index)s-%(title)s%(ext)s' *link to playlist*
+```
 
 If you want to control the format you export, you can use the -F command to see what formats are available:
-> youtube-dl -F **link to video**
+```bash
+youtube-dl -F *link to video*
+```
 
 This will output something like the following...
 
@@ -99,13 +141,19 @@ This will output something like the following...
 The number furthest to the left is the format number. Notice the second column is the available formats corresponding to the format number. You could download a video as an mp3 or m4a for audio only. Pay close attention to the far right where some formats say *video only*. To state the abvious, this means there is no audio for this format.
 
 To control for which format you want, you need to replace -F with -f**format number**. Example, I want the audio only:
-> youtube-dl -f140 **link to video**
+```bash
+youtube-dl -f140 *link to video*
+```
 
 You can combine all of the above commands if desired like so:
-> youtube-dl -f140 -o '%(playlist_index)s-%(title)s%(ext)s' **link to video** --restrict-filenames
+```bash
+youtube-dl -f140 -o '%(playlist_index)s-%(title)s%(ext)s' *link to video* --restrict-filenames
+```
 
 ### Conclusion
 Since there are nearly a hundred possible ways to use youtube-dl, I'm going to cut this guide here and let you use the man pages to read more:
-> man youtube-dl
+```bash
+man youtube-dl
+```
 
-Or check out the wiki.
+Or check out the wiki. And remember, if youtube-dl is downloading too slow, just replace youtube-dl with **yt-dlp**.
