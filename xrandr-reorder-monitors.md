@@ -4,7 +4,9 @@ xrandr is a standard tool packed in nearly every Linux distro, is extremely powe
 ## Getting Started
 Type the following in your terminal to list all your monitors and their supports resolutions:
 
-> xrandr
+```bash
+xrandr
+```
 
 You'll notice that the more monitors you have, the more entries there will be. It might be wise to use a terminal with scrolling support built into it, like qterminal.
 
@@ -21,22 +23,31 @@ But let's run a second scenario: You have one monitor that has to be plugged in 
 
 You can choose one of the following commands, and with two monitors, it wont matter which one you pick:
 
-> xrandr --output HDMI-1 --right-of DP-1
+```bash
+xrandr --output HDMI-1 --right-of DP-1
+```
 
 or
 
-> xrandr --output DP-1 --left-of HDMI-1
+```bash
+xrandr --output DP-1 --left-of HDMI-1
+```
 
-## Presisting the changes
+
+## Persisting the changes
 Great, now your monitors are in the right order, but you've rebooted and the problem has returned... Well, that's because you need to write one of the above commands into a file that is executed on start.
 
 If you use lightdm, modify your .xprofile file in your $HOME directory to include the following:
 
-> xrandr --output HDMI-1 --right-of DP-1
+```bash
+xrandr --output HDMI-1 --right-of DP-1
+```
 
 If you're using xorg with dwm, and you basically don't have a xisplay manager, modify your .xinitrc in the $HOME directory to include the following:
 
-> xrandr --output HDMI-1 --right-of DP-1
+```bash
+xrandr --output HDMI-1 --right-of DP-1
+```
 
 Now the changes will persist at startup.
 
