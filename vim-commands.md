@@ -1,6 +1,8 @@
 # Vim Commands
 This isn't going to be a guide like the others, this is a reference page of various vim commands that serve specific purposes. I will be coming back to add to this over time. This page will still teach you some vim, but you should really learn vim from vimtutor. If you have vim installed on your system, just run the following command in your terminal and an interactive tutorial will start:
-> vimtutor
+```bash
+vimtutor
+```
 
 ### Modes
 An important thing I will likely keep bringing up is what mode you are in to perform a certain action. You can only run certain commands and perform certain tasks in a specific mode, so I want to get this out of the way to prevent any confusion.
