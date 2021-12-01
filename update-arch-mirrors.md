@@ -5,9 +5,13 @@ You may have recently run into an issue as of 5/1/2021 where, if you followed my
 I update my mirrorlist once a month, you can find it at https://github.com/nliaquin/arch-mirrors
 
 To do this properly, do the following:
-> git clone https://github.com/nliaquin/arch-mirrors.git
+```bash
+git clone https://github.com/nliaquin/arch-mirrors.git
+```
 
-> cat arch-mirrors/mirrorlist > /etc/pacman.d/mirrorlist
+```bash
+cat arch-mirrors/mirrorlist ```bash/etc/pacman.d/mirrorlist
+```
 
 And you're done!
 
