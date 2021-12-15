@@ -3,7 +3,7 @@ There's a few ways to connect to wifi via the commandline, and we're going to go
 
 ### Table of Contents
 - [Choosing a method](#choosing-a-method)
-- [Using iwd](#configuring-iwd)
+- [Using iwd](#using-iwd)
 - [Using wpa_supplicant](#using-wpa_supplicant)
 - [Configuring dhcp](#configuring-dhcp)
 
