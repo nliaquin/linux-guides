@@ -16,6 +16,9 @@ The very first think you should know how to do is view what drives are plugged i
 lsblk
 ```
 
+If you're not very familiar with **lsblk**, or how Linux handles block devices, check out this quick start guide real quick: https://github.com/nliaquin/linux-guides/blob/main/lsblk.md
+
+Now, assuming you ran **lsblk**, this is what the output should roughly look like the following
 ```bash
 [user@disto ~]$ lsblk
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
