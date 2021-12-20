@@ -251,7 +251,7 @@ This is a ton of stuff to help you get going, but if you want to know what all o
 ### Generating fstab
 In order to boot properly into the system each time we start up, you need to create a table with all of the partition mapping information in /etc/fstab:
 ```bash
-genfstab -U /mnt > bash /mnt/etc/fstab
+genfstab -U /mnt > /mnt/etc/fstab
 ```
 
 
