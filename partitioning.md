@@ -26,7 +26,7 @@ Device     Boot     Start        End    Sectors  Size Id Type
 /dev/sda4       122685440 1953525167 1830839728  873G 83 Linux
 ```
 
-This is an example of what the output might look like for a disk that has a terabyte of capacity with a standard Linux distro installed on it. You'll notice that at the bottom, there are some partitions already. This output would roughly match the output of the **lsblk** command, which you can find a lesson on how that works [here](https://github.com/nliaquin/linux-guides/blob/main/lsblk.md). Let's assume that we've just plugged in a 60GB flash drive with absolutely nothing on it, no partitions, nothing. We'll run *fdisk -l* once more and see the following below the /dev/sda entry:
+This is an example of what the output might look like for a disk that has a terabyte of capacity with a standard Linux distro installed on it. You'll notice that at the bottom, there are some partitions already. This output would roughly match the output of the **lsblk** command, which you can find a lesson on how that works [here](https://github.com/nliaquin/linux-guides/blob/main/lsblk.md). Let's assume that we've just plugged in a 60GB flash drive with absolutely nothing on it, no partitions, nothing. We'll run **fdisk -l** once more and see the following below the /dev/sda entry:
 ```bash
 Disk /dev/sdc: 57.28 GiB, 61505273856 bytes, 120127488 sectors
 Disk model: Ultra           
