@@ -322,7 +322,7 @@ sdc      8:32   0 465.8G  0 disk
 ├─sdc1   8:33   0   512M  0 part 
 ├─sdc2   8:34   0    50G  0 part 
 ├─sdc3   8:35   0    16G  0 part 
-└─sdc4   8:36   0     1K  0 part
+└─sdc4   8:36   0 399.3G  0 part
 ```
 Disk **sdc** now has four partitions, and all that's left is to add the filesystems to them. For the **boot** partition, we should use FAT32:
 ```bash
