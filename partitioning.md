@@ -80,13 +80,13 @@ Partition number (1-4, default 1): 1
 First sector (2048-120127487, default 2048): 
 ```
 
-Disks contain sectors, including the starting byte and ending byte. It's ultimately what determines how much storage capacity we have on a partition, and in this case, the earliest byte on the disk we can use is the 2048th byte. In most cases, fdisk is really good at determining the earliest available byte on the disk, even when there are other partitions already defined. The best thing to do now is just press enter:
+Disks contain sectors, including the starting sector and ending sector. It's ultimately what determines how much storage capacity we have on a partition, and in this case, the earliest sector on the disk we can use is the 2048th sector. In most cases, fdisk is really good at determining the earliest available sector on the disk, even when there are other partitions already defined. The best thing to do now is just press enter:
 ```bash
 First sector (2048-120127487, default 2048): 
 Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-120127487, default 120127487): 
 ```
 
-Each partition also has the latest byte on the disk, so given we used the earliest byte (or smallest byte) in the previous option, and we want to make the biggest partition we want for storing data on this disk, let's just also leave this blank and hit enter to make the end of this partition the latest byte (or largest byte):
+Each partition also has the latest sector on the disk, so given we used the earliest sector in the previous option, and we want to make the biggest partition we want for storing data on this disk, let's just also leave this blank and hit enter to make the end of this partition the latest sector:
 ```bash
 Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-120127487, default 120127487): 
 
