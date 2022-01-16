@@ -333,12 +333,6 @@ and uncomment it by removing the pound symbol. This way, your new user and actua
 
 You should now log into this account from now on, and never use root unless it's for system recovery purposes, or if you plan on whiping away all accounts and starting fresh in the system.
 
-Lastly, let's permanently disable the pcspkr module. Use a text editor to create the following file: **/etc/modprobe.d/nobeep.conf** and then enter this text into the file:
+Lastly, those [preliminaries](https://github.com/nliaquin/linux-guides/blob/main/arch/0-installing-arch.md#preliminaries-before-starting) you did at the beginning? Well, you'll have to do them again. The thing you might not understand yet is that the live Arch bootcd is where you made those changes, but none of those changes persist until you perform them in your new Arch environment. 
 
-```bash
-blacklist pcspkr
-```
-
-No more obnoxious beeping.
-
-That's everything you needed to know for both installation and post-installation, and if you have any questions, email me: nickolas@nliaquin.xyz
+That's everything you needed to know for both installation and post-installation, and if you have any questions, email me via nickolas@nliaquin.xyz
