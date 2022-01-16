@@ -4,9 +4,7 @@
 Many new Linux users look at Arch as one of the final bosses of distro hopping, and some even outright say it's one of the hardest distros to install, but it's actually not! Some have opted to use the recently released guided installer, which is just a python script that comes with the image, but it occasionally flubs up and leaves you with issues. In this guide, I'm going to show you how to manually install Arch Linux fast and efficiently with some sections that even the installaion wiki doesn't tell you about.
 
 ### Table of Contents
-- [Disable pcspkr Module](#disable-pcspkr-module)
-- [Connecting to the internet](#connecting-to-the-internet)
-- [Brightness Problem on Laptops](#brightness-problem-on-laptops)
+- [Preliminaries before starting](#preliminaries-before-starting)
 - [Checking the EFI Status](#checking-the-efi-status)
 - [Updating the System Clock](#updating-the-system-clock)
 - [Partitioning Your Hard Drive](#partitioning-your-hard-drive)
@@ -23,75 +21,17 @@ Many new Linux users look at Arch as one of the final bosses of distro hopping, 
 - [Post-Installation](#post-installation)
 
 
-### Disable pcspkr Module
-First of all, you're going to notice that nearly every time to tab to autocomplete while installing linux, there will be a loud, obnoxious beep. This is called the pcspkr module. Nearly every Arch user disables this right away. To do so, enter the following:
+### Preliminaries before starting
+There are a number of things you might need to address before getting started:
 
-```bash 
-rmmod pcspkr
-```
-At the end of the guide, there will be a small instruction on how to disable this permanently after you finish installing Arch.
+ - Connecting to wifi
+If you are using a laptop and do not with to connect to the internet with ethernet during this installation, you have a could viable options. I have a couple of guides that teach you how to quickly connect to wifi using either [iwd](https://github.com/nliaquin/linux-guides/blob/main/networking/iwd.md) or [wpa_supplicant](https://github.com/nliaquin/linux-guides/blob/main/networking/wpa_supplicant.md). For a temporary connection, I recommend the wpa_supplicant guide, but iwd is very fast and efficient and could be better for saving you time.
 
+ - Controlling your laptop backlight before starting
+If you're on a laptop, chances are that some power-saving module may have automatically turned your brightness down to its lowest. This can happen in a number of situations, but I highly recommend you check out my [control-laptop-backlight.md](https://github.com/nliaquin/linux-guides/blob/main/control-laptop-backlight.md) guide so you can adjust the laptop screen brightness for a more comfortable experience installing Arch.
 
-### Connecting to the internet
-In recent years, the Arch installation image comes with a very easy to use wifi commandline program called **iwd** which does not require as much setup as NetworkManager does.
-
-Start iwd from the commandline with the following command:
-```bash 
-iwctl
-```
-
-You'll be put into a commandline interface, and you'll now want to list your network devices:
-```bash
-station list
-```
-
-At this point, one of two things will occur. Either you'll see a device named something like wlan0, you'll see nothing, or you'll see other devices such as enp2s0. The fact is, we need a wlan device for wifi, and if you don't see wlan0, or something that starts with wlan, you need to exit iwd by either typing exit, or pressing ctrl+c.
-
-If you have a wifi adapter on your device, regardless if it's PCI or USB, you have a wlan device, but it's currently being blocked. To unblock it, type the following:
-```bash 
-rfkill unblock wifi
-```
-
-This was a temporary unblocking of your wlan device. We'll whitelist it permanently later in the guide. For now, type in iwctl again, and then use **station list** once more to see your network interface. If wlan0 shows up, you'll want to scan for networks like so:
-```bash 
-station wlan0 scan
-```
-
-After scanning, you can list your networks using:
-```bash 
-station wlan0 get-networks
-```
-
-If you see your wifi network, or if you already knew your network name, all you have to do is:
-```bash 
-station wlan0 connect **Network Name**
-```
-
-Auto-completion is built into iwd. Typing the first couple of letters/numbers of your wifi network and pressing tab will autofill your networks ssid. You will be prompted to enter the network passphrase, and once you successfully connect to the wifi, you'll get no confirmation. Just exit the program and move forward. You will get a warning if you entered the wrong passphrase.
-
-After exiting iwd, enter the following to test your connection:
-```bash 
-ping -c3 google.com
-```
-
-This just pings 3 times so you don't have to cancel or exit the ping program.
-
-
-### Brightness Problem on Laptops
-You're going to notice the screen is really dark on some laptops. This is because your laptop has given a ctl module a value indicating that the power is too low, or the laptop is unplugged. The default behavior is to respond by lowering backlight brightness to reserve battery. Sometimes this just triggers despite being fully charged, so do the following:
-```bash 
-pacman -Syy
-```
-
-After this finishes synching with the repositories, you're going to want to download the following package:
-```bash 
-pacman -S brightnessctl
-```
-
-After installing, enter this a couple times until you reach the desired brightness level:
-```bash 
-brightnessctl set 10%+
-```
+ - Disabling the pcspkr module, aka LOUD BEEP
+You're going to notice that, while installing Arch, there is a loud beep whenever you backspace in the shell with no text in the buffer, or when you try to auto-fill your shell but the interpreter came up with nothing. Visit my [disabling-pcspkr.md](https://github.com/nliaquin/linux-guides/blob/main/arch/disabling-pcspkr.md) guide to learn how you can both temporarily and permanently turn it off.
 
 
 ### Checking the EFI Status
@@ -113,37 +53,14 @@ timedatectl set-ntp true
 
 
 ### Partitioning Your Hard Drive
-There are a number of ways to partition your hard drive for any Linux distro, but I prefer to use **cfdisk** to partition my disks. I also prefer a boot partition, a root partition, a swap partition, and a home partition, all in that order. Boot, Root, Swap, Home. Remember that for all future Linux Distro installations, as this applies to all distros.
+I'm not going to cover how to partition here, but you can check out my [partitioning.md](https://github.com/nliaquin/linux-guides/blob/main/partitioning.md) guide which goes over partitioning in thorough detail for multiple scenarios, including installing Linux. I'm just going to suggest the partition schema you should go with here:
 
  - boot partition       512M             fat32
  - root partition       25G to 50G       ext4
  - swap partition       4G to 8G
  - home partition       remainder        ext4
 
-If you have an alternative partitioning schema, go ahead and feel free to use whatever you want. However, I will continue this section as though you chose mine:
-```bash 
-cfdisk
-```
-
-In cfdisk, you'll see a list of partitions, some options below such as [Bootable], [Delete], [Quit], [Write], etc. If this is not a new hard drive, go ahead and delete every partition listed form the top. If you have no partitions already, proceed to choose [New] and set the partition to be 512M. Hit the down arrow to move to the next empty space on the hard drive, then hit [New] again and type 25G or more, it really just depends on the size of your drive. Then hit [New] again and enter 4G or more, again, depending on the size of the drive. Lastly, hit [New] one more time and leave it at whatever the remaining space is. This will be the home partition, and you want to use the remaining disk space for your users, their personal files and programs, etc. Finally, choose the [Write] option, type out yes when asked to confirm changes, then press [Exit].
-
-Confirm you did all that correctly by typing:
-```bash 
-lsblk
-```
-
-If everything was done correctly, you should see something like this:
-
-```bash
-NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
-sda      8:0    0 931.5G  0 disk 
-├─sda1   8:1    0   512M  0 part
-├─sda2   8:2    0    25G  0 part
-├─sda3   8:3    0     4G  0 part
-└─sda4   8:4    0   whatever you had left on the disk
-```
-
-Next, lets format by doing executing the following commands:
+Next, lets format these partitions by executing the following commands:
 ```bash 
 mkfs.fat -F32 /dev/sda1
 ```
