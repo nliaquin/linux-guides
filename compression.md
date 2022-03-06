@@ -90,6 +90,11 @@ There are many arguments available for tar, so be sure to check out the **man pa
 man tar
 ```
 
+Lastly, to untar, run the following:
+```bash
+tar xvf project.tar
+```
+
 
 ## How to compress files/archives
 In practice, in order to use these compression formats, you need to use programs. Obviously, you might be thinking to yourself, but I mention this because on Linux, compression and de-compression are separated into two different programs. If we want to create a gz, we use **gzip**. If we want to de-compress a gz, we use **gunzip**. Those program names seem clever, right? Well, some programs don't separate the two, and instead just use the same command with different arguments, like xz does.
