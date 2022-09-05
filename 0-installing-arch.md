@@ -337,4 +337,4 @@ You should now log into this account from now on, and never use root unless it's
 
 Lastly, those [preliminaries](https://github.com/nliaquin/linux-guides/blob/main/arch/0-installing-arch.md#preliminaries-before-starting) you did at the beginning? Well, you'll have to do them again. The thing you might not understand yet is that the live Arch bootcd is where you made those changes, but none of those changes persist until you perform them in your new Arch environment. 
 
-That's everything you needed to know for both installation and post-installation, and if you have any questions, email me via nickolas@nliaquin.xyz
+That's everything you needed to know for both installation and post-installation, and if you have any questions, email me via nickolasiaquinta@gmail.com

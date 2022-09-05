@@ -96,4 +96,4 @@ ping -c2 google.com
 
 If it worked, you'll successfully send icmp requests and get feedback from google.com.
 
-If it didn't... well, you'll either have to repeat a couple of steps in this guide or email me at nickolas@nliaquin.xyz for help. I'll be glad to assist anyone in need. This all can get very complicated, but it's worth learning if you are working towards becoming a system administrator or plan on configuring and interfacing with a home server via ssh. Thanks for using my guide.
+If it didn't... well, you'll either have to repeat a couple of steps in this guide or email me at nickolasiaquinta@gmail.com for help. I'll be glad to assist anyone in need. This all can get very complicated, but it's worth learning if you are working towards becoming a system administrator or plan on configuring and interfacing with a home server via ssh. Thanks for using my guide.

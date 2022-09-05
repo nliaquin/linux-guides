@@ -159,4 +159,4 @@ IgnorePkg = openssh
 ```
 Near the very bottom, you see openssh was added in after *IgnorePkg = *, and you can edit this to add more packages if you want. To add more packages, only seperate the package names with spaces, not commas. Also, once again, ensure you types in the right package name.
 
-That's it for this guide, it definitely contains some insight not usually found in other guides, and if you have any questions just email me via nickolas@nliaquin.xyz.
+That's it for this guide, it definitely contains some insight not usually found in other guides, and if you have any questions just email me via nickolasiaquinta@gmail.com.

@@ -244,7 +244,7 @@ Okay, that was a lot of info, but let's cut to the end here. Now, you're going t
 sudo mount -a
 ```
 
-If there is no output, you've done everything correctly. If there is output, you've got a problem... Make sure to re-read the guide if you have any problems, or email me nickolas@nliaquin.xyz
+If there is no output, you've done everything correctly. If there is output, you've got a problem... Make sure to re-read the guide if you have any problems, or email me nickolasiaquinta@gmail.com
 
 
 ### NTFS Not Mounting

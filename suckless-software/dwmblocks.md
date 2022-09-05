@@ -58,4 +58,4 @@ mkdir -p /usr/local/bin
 install -m 0755 dwmblocks /usr/local/bin/dwmblocks
 ```
 
-And that's it. Please feel free to email for help via nickolas@nliaquin.xyz
+And that's it. Please feel free to email for help via nickolasiaquinta@gmail.com

@@ -62,4 +62,4 @@ sudo update-grub
 ```
 You could use **grub-mkconfig**, but that could exclude some entries if you still maintain more than one distro using dualboot.
 
-That's it for this guide, please feel free to contact me via nickolas@nliaquin.xyz for any problems or questions.
+That's it for this guide, please feel free to contact me via nickolasiaquinta@gmail.com for any problems or questions.

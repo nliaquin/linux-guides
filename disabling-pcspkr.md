@@ -21,4 +21,4 @@ Next, enter the following and save the file:
 blacklist pcspkr
 ```
 
-And that's it! Contact me via nickolas@nliaquin.xyz if you have any problems or questions.
+And that's it! Contact me via nickolasiaquinta@gmail.com if you have any problems or questions.

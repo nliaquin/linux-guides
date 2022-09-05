@@ -53,4 +53,4 @@ It's best to keep the **dwmblocks &** line at the bottom of this file.
 
 Other commands can be added to this file, like if you have two monitors that always are out of order when you startup, you can use xrandr commands to reorder them before you start up dwm.
 
-I hope this guide was helpful, and I'm sorry if you were looking for a section of configuring dwm with a display manager, I no longer support that kind of setup. I have found combining dwm with display managers to be pretty buggy lately. If you have any questions, reach me via nickolas@nliaquin.xyz
+I hope this guide was helpful, and I'm sorry if you were looking for a section of configuring dwm with a display manager, I no longer support that kind of setup. I have found combining dwm with display managers to be pretty buggy lately. If you have any questions, reach me via nickolasiaquinta@gmail.com

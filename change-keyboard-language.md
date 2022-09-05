@@ -33,4 +33,4 @@ EndSection
 
 And of course, since this is a file that is only read upon the init system awakening the xorg program, there are only two ways to put the change into effect: restart your computer, or restart xorg. Honestly, it's easier just to restart your computer. Restarting xorg depends on you targeting the specific display environment you have, and if you're a newer user who is using a distro with an easy installer, you might not know which of the seven different mainstream programs you have running.
 
-I hope this guide helps, but if you need further assistance, I can be reached via email at nickolas@nliaquin.xyz
+I hope this guide helps, but if you need further assistance, I can be reached via email at nickolasiaquinta@gmail.com

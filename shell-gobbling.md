@@ -126,4 +126,4 @@ ls *[!3]
 ### Conclusion
 I hope that this guide provided some quick use to you. Knowing everything I taught you above, you should now be able to start coming up with new use-cases for these tactics on different scenarios, and possible come up with your own combination of commands that serve useful.
 
-If you have any questions, as always, feel free to email me at nickolas@nliaquin.xyz
+If you have any questions, as always, feel free to email me at nickolasiaquinta@gmail.com

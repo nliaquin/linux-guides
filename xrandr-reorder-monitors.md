@@ -51,4 +51,4 @@ xrandr --output HDMI-1 --right-of DP-1
 
 Now the changes will persist at startup.
 
-That's it, and if you have any questions, email me at nickolas@nliaquin.xyz
+That's it, and if you have any questions, email me at nickolasiaquinta@gmail.com

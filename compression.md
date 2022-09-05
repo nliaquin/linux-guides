@@ -287,4 +287,4 @@ tar -zxvf myzip.tar.gz
 We changed one flag, -c is now -x, which stands for extract.
 
 
-And that's everything you need to know about compressing and uncompressing files/folders. Feel free to choose either method, and feel free to contact me if you have any questions or problems, nickolas@nliaquin.xyz
+And that's everything you need to know about compressing and uncompressing files/folders. Feel free to choose either method, and feel free to contact me if you have any questions or problems, nickolasiaquinta@gmail.com

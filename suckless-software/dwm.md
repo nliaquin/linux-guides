@@ -182,4 +182,4 @@ chmod 644 /usr/local/share/man/man1/dwm.1
 
 Otherwise, this output will contain lines saying *error* with information as to what went wrong. These errors vary, but they are straightforward and will tell you what line of code in **config.def.h** caused the error with suggestions as to how you can fix it. This is where it comes in handy to know a little C by the way.
 
-If you've finished this guide and the guide on compiling dmenu, you're ready for the patch guides. If you had any trouble, feel free to email me via nickolas@nliaquin.xyz
+If you've finished this guide and the guide on compiling dmenu, you're ready for the patch guides. If you had any trouble, feel free to email me via nickolasiaquinta@gmail.com

@@ -82,4 +82,4 @@ chmod 644 /usr/local/share/man/man1/stest.1
 
 Ignore the warnings, you only have to worry if you see errors. That's it for this guide, and if you haven't already, go complete the **dwm.md** and **xorg-config.md** guides.
 
-If you had any problems or have any questions, email me via nickolas@nliaquin.xyz
+If you had any problems or have any questions, email me via nickolasiaquinta@gmail.com
