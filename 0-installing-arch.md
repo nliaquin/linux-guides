@@ -1,5 +1,5 @@
 # Installing Arch Linux, Manually, Fast, and Efficiently
-### Last Updated: November 6th, 2021
+### Updated: September 5th, 2022
 
 Many new Linux users look at Arch as one of the final bosses of distro hopping, and some even outright say it's one of the hardest distros to install, but it's actually not! Some have opted to use the recently released guided installer, which is just a python script that comes with the image, but it occasionally flubs up and leaves you with issues. In this guide, I'm going to show you how to manually install Arch Linux fast and efficiently with some sections that even the installaion wiki doesn't tell you about.
 
@@ -25,13 +25,13 @@ Many new Linux users look at Arch as one of the final bosses of distro hopping, 
 There are a number of things you might need to address before getting started:
 
  - Connecting to wifi
-If you are using a laptop and do not with to connect to the internet with ethernet during this installation, you have a could viable options. I have a couple of guides that teach you how to quickly connect to wifi using either [iwd](https://github.com/nliaquin/linux-guides/blob/main/networking/iwd.md) or [wpa_supplicant](https://github.com/nliaquin/linux-guides/blob/main/networking/wpa_supplicant.md). For a temporary connection, I recommend the wpa_supplicant guide, but iwd is very fast and efficient and could be better for saving you time.
+If you are using a laptop and do not with to connect to the internet with ethernet during this installation, you have a could viable options. I have a couple of guides that teach you how to quickly connect to wifi using either [iwd](https://github.com/nliaquin/linux-guides/blob/main/iwd.md) or [wpa_supplicant](https://github.com/nliaquin/linux-guides/blob/main/wpa_supplicant.md). For a temporary connection, I recommend the wpa_supplicant guide, but iwd is very fast and efficient and could be better for saving you time.
 
  - Controlling your laptop backlight before starting
 If you're on a laptop, chances are that some power-saving module may have automatically turned your brightness down to its lowest. This can happen in a number of situations, but I highly recommend you check out my [control-laptop-backlight.md](https://github.com/nliaquin/linux-guides/blob/main/control-laptop-backlight.md) guide so you can adjust the laptop screen brightness for a more comfortable experience installing Arch.
 
  - Disabling the pcspkr module, aka LOUD BEEP
-You're going to notice that, while installing Arch, there is a loud beep whenever you backspace in the shell with no text in the buffer, or when you try to auto-fill your shell but the interpreter came up with nothing. Visit my [disabling-pcspkr.md](https://github.com/nliaquin/linux-guides/blob/main/arch/disabling-pcspkr.md) guide to learn how you can both temporarily and permanently turn it off.
+You're going to notice that, while installing Arch, there is a loud beep whenever you backspace in the shell with no text in the buffer, or when you try to auto-fill your shell but the interpreter came up with nothing. Visit my [disabling-pcspkr.md](https://github.com/nliaquin/linux-guides/blob/main/disabling-pcspkr.md) guide to learn how you can both temporarily and permanently turn it off.
 
 
 ### Checking the EFI Status
@@ -159,7 +159,7 @@ I keep this list updated once a month as a convenience. Feel free to use it your
 Usually during this step, people just install the standard packages, but I think this is actually a good time to install some other essentials like iwd, which does not come with Arch post-installation, dhcpcd, which will help with resolving hosts when you boot in post-installation, and other great utilities:
 
 ```bash
-pacstrap /mnt base base-devel linux linux-firmware iwd w3m efibootmgr vim git dhcpcd dhclient bash man-db man-pages texinfo openssh polkit sudo brightnessctl lshw neofetch
+pacstrap /mnt base base-devel linux linux-firmware iwd wpa_supplicant wireless_tools networkmanager efibootmgr vim git dhclient bash man-db man-pages texinfo openssh polkit sudo brightnessctl lshw neofetch
 ```
 
 This is a ton of stuff to help you get going, but if you want to know what all of it does, you can look up the package name, or use man *package-name* after finishing installation.
@@ -230,13 +230,15 @@ Once in editing mode, write out the following, given you went with arch-laptop a
 127.0.1.1   arch-laptop.localdomain arch-laptop
 ```
 
-Now you'll want to enable iwd and dhcpcd at startup so that networking just works on boot:
+If you plan on using IWD are you wifi manager:
 ```bash 
 systemctl enable iwd
 ```
 
-```bash 
-systemctl enable dhcpcd
+If you plan on using NetworkManager as your wifi manager:
+```bash
+systemctl enable NetworkManager.service
+systemctl enable wpa_supplicant
 ```
 
 Lastly, if you had to use rfkill in order to unblock wlan0, run the following command:
