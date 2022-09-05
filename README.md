@@ -1,10 +1,10 @@
 # Linux Guides
 
 ## About
-This repository is where I write helpful guides that help people learn how to perform various tasks on Linux without having to read entire wiki pages. I want to provide articles that will help readers accomplish their goals in a reasonable amount of time, but I also don't encourage anyone to treat my guides as a complete replacement for your distro's wiki, or learning linux as a whole in general. Use these guides as a way to start getting things done with Linux and specific utilities mentioned in the articles, but please remember that the wikipedia page for your distro is the best source of information for truly understanding the full picture. Most of the guides are geared towards accomplishing specific tasks that may not be clear when reading a wiki, but once you read some of the guides in this repository, you'll likely have an easier time understanding the wiki pages afterwards. Start here, then head back to the wiki for your distro, and go from there.
+This is a guide series on how to accomplish switching to Linux, specifically based on Arch. Do not look at this series as a replacement for the Arch Wiki, you should still use the Wiki to make sure you know which packages to install and how to configure specific parameters that my guides might now cover. My guides are more of a fill-in-the-gaps and quick-start set of articles as opposed to explanatory literature.
 
 ### News as of 9/5/2022
-Well, it's been a long time since I've been here. I took up an engineering position about 6 months back and haven't had time to work on this guide series.
+Well, it's been a long time since I've been here. I took up an engineering position about 6 months back and haven't had time to work on this guide series. This series is no longer for all flavors of Linux, by the way, it's moving completely in the direction of Arch. Many of the guides are still general Linux info.
 
 While a lot of my guides are going to remain valid for many years, but some of my guides are no longer fully working due to changes with some of the packages that are the subject of some guides. If any of my guides don't work for you, please contact me at the email below. I am going to start changing a lot of the information in these guides to keep them up to date.
 
