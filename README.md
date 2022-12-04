@@ -12,7 +12,7 @@ my guides are split up into the following categories:
  - gnu, guides for the gnu software that comes with your linux distro, particularly administrative task-focused software
 
 
-### News as of 10/4/2022
+### News as of 12/4/2022
 The year is coming to a close and I haven't updated anything in this repo since November 2nd! Time flies by when you have a job. Here's the roadmap for linux-guides before the end of the year:
 
  - ~~A new layout is going to be introduced soon where all guides are going to be reorganized into directories as opposed to being scattered everywhere. I'm still deciding on the exact style guide, as I don't want people to get confused about where to find specific guides. An update to this README.md file will come out by the end of the day on how the style will be laid out.~~
