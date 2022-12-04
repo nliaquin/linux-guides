@@ -1,14 +1,27 @@
 # Linux Guides
 
 ## About
-This is a guide series on how to accomplish switching to Linux, specifically based on Arch. Do not look at this series as a replacement for the Arch Wiki, you should still use the Wiki to make sure you know which packages to install and how to configure specific parameters that my guides might now cover. My guides are more of a fill-in-the-gaps and quick-start set of articles as opposed to explanatory literature.
+Welcome to my series of guides on Linux, specifically centered around the setup and maintenance of Arch Linux. My guides will rely on you specifically using Arch because of what software will be covered being available via the pacman package manager and the AUR (Arch User Repository).
 
-### News as of 9/5/2022
-Well, it's been a long time since I've been here. I took up an engineering position about 6 months back and haven't had time to work on this guide series. This series is no longer for all flavors of Linux, by the way, it's moving completely in the direction of Arch. Many of the guides are still general Linux info.
+my guides are split up into the following categories:
 
-While a lot of my guides are going to remain valid for many years, but some of my guides are no longer fully working due to changes with some of the packages that are the subject of some guides. If any of my guides don't work for you, please contact me at the email below. I am going to start changing a lot of the information in these guides to keep them up to date.
+ - arch-installation, the guides to help you install arch linux
+ - software, guides for software available from the pacman package manager or the AUR
+ - system-config, guides on how to change settings with the larger environment of your distro or large subsystems of your distro such as Xorg
+ - networking, guides on how to configure wifi in Linux with a couple different options of software to choose from
+ - gnu, guides for the gnu software that comes with your linux distro, particularly administrative task-focused software
 
-Lastly, nliaquin.xyz is dead, and nickolasiaquinta@gmail.com is no longer around. The website mostly served as a way for me to demonstrate my skills to potential employers, however, it served me no real use after a while since I already landed a career that I love. That is mainly why I've not been around, because I am passionate about my job. I am still passionate about this series of guides, though, which is why I'm going to start finding the time to return to it. I hope to have most of the information updated and corrected by the end of this month.
+
+### News as of 10/4/2022
+The year is coming to a close and I haven't updated anything in this repo since November 2nd! Time flies by when you have a job. Here's the roadmap for linux-guides before the end of the year:
+
+ - A new layout is going to be introduced soon where all guides are going to be reorganized into directories as opposed to being scattered everywhere. I'm still deciding on the exact style guide, as I don't want people to get confused about where to find specific guides. An update to this README.md file will come out by the end of the day on how the style will be laid out.
+
+ - The arch installation guide will be getting split up into two or three different files and put into their own folder. I recently asked some people who are new to Linux to try out my arch installation guide, and there was some confusion regarding certain segments like preliminaries and grub installation. My goal is to split the EFI and non-EFI versions into two to make things easier.
+
+ - There is going to be some general cleanup of my guides as well. Some of them need some formatting and were just left as is for the longest time. I'd like to thoroughly ensure every guide is up to standard.
+
+Thanks for reading and supporting my guides, please feel free to contact me for help or advice with Linux.
 
 ## Contact Me
 nickolasiaquinta@gmail.com
