@@ -159,7 +159,7 @@ I keep this list updated once a month as a convenience. Feel free to use it your
 Usually during this step, people just install the standard packages, but I think this is actually a good time to install some other essentials like iwd, which does not come with Arch post-installation, dhcpcd, which will help with resolving hosts when you boot in post-installation, and other great utilities:
 
 ```bash
-pacstrap /mnt base base-devel linux linux-firmware iwd wpa_supplicant wireless_tools networkmanager efibootmgr vim git dhclient bash man-db man-pages texinfo openssh polkit sudo brightnessctl lshw neofetch
+pacstrap /mnt base base-devel linux linux-firmware grub progress wpa_supplicant wireless_tools networkmanager efibootmgr vim git dhclient bash man-db man-pages texinfo openssh polkit sudo brightnessctl lshw neofetch w3m
 ```
 
 This is a ton of stuff to help you get going, but if you want to know what all of it does, you can look up the package name, or use man *package-name* after finishing installation.
